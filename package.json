@@ -1,0 +1,15 @@
+{
+  "name": "ixia-online",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "python3 -m http.server 4173 -d dist",
+    "test": "node scripts/test.mjs",
+    "cf:pages:ensure": "node scripts/cloudflare-pages-manager.mjs ensure-project",
+    "cf:pages:domains": "node scripts/cloudflare-pages-manager.mjs sync-domains",
+    "cf:pages:deploy": "node scripts/direct-pages-deploy.mjs dist",
+    "namecheap:dns:sync": "node scripts/namecheap-dns-manager.mjs sync-records"
+  }
+}

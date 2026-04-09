@@ -1,0 +1,94 @@
+name: Cloudflare Pages Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - "claude/**"
+      - "preview/**"
+  workflow_dispatch:
+
+env:
+  CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'ixia-online' }}
+  CLOUDFLARE_PAGES_PRODUCTION_BRANCH: main
+  CLOUDFLARE_PAGES_BUILD_COMMAND: npm run build
+  CLOUDFLARE_PAGES_BUILD_OUTPUT_DIR: dist
+  CLOUDFLARE_PAGES_DOMAINS: ${{ vars.CLOUDFLARE_PAGES_DOMAINS || '' }}
+  DNS_PROVIDER: ${{ vars.DNS_PROVIDER || 'cloudflare' }}
+  CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID || '' }}
+  CLOUDFLARE_DNS_TARGET: ${{ vars.CLOUDFLARE_DNS_TARGET || '' }}
+  CLOUDFLARE_DNS_PROXIED: ${{ vars.CLOUDFLARE_DNS_PROXIED || 'true' }}
+  NAMECHEAP_DOMAIN: ${{ vars.NAMECHEAP_DOMAIN || '' }}
+  NAMECHEAP_DNS_TARGET: ${{ vars.NAMECHEAP_DNS_TARGET || '' }}
+  NAMECHEAP_DNS_TTL: ${{ vars.NAMECHEAP_DNS_TTL || '300' }}
+  NAMECHEAP_DNS_SYNC_ENABLED: ${{ vars.NAMECHEAP_DNS_SYNC_ENABLED || 'false' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build site
+        run: npm run build
+        env:
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL || 'https://example.com' }}
+
+      - name: Resolve Pages deploy flags
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "CF_PAGES_BRANCH_FLAG=" >> "$GITHUB_ENV"
+          else
+            echo "CF_PAGES_BRANCH_FLAG=--branch=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Ensure Pages project exists
+        run: npm run cf:pages:ensure
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ env.CLOUDFLARE_PAGES_PROJECT }} ${{ env.CF_PAGES_BRANCH_FLAG }}
+
+      - name: Attach Pages custom domains
+        if: github.ref_name == 'main' && env.CLOUDFLARE_PAGES_DOMAINS != ''
+        run: npm run cf:pages:domains
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Explain skipped Namecheap DNS sync
+        if: github.ref_name == 'main' && env.CLOUDFLARE_PAGES_DOMAINS != '' && env.DNS_PROVIDER == 'namecheap' && env.NAMECHEAP_DNS_SYNC_ENABLED != 'true'
+        run: |
+          echo "Skipping Namecheap DNS sync in GitHub Actions."
+          echo "Reason: Namecheap API requires an allowlisted client IP, which is not stable on GitHub-hosted runners."
+          echo "Run npm run namecheap:dns:sync from the allowlisted local machine or move this step to a self-hosted runner, then set NAMECHEAP_DNS_SYNC_ENABLED=true if you want CI to execute it."
+
+      - name: Sync Namecheap DNS
+        if: github.ref_name == 'main' && env.CLOUDFLARE_PAGES_DOMAINS != '' && env.DNS_PROVIDER == 'namecheap' && env.NAMECHEAP_DNS_SYNC_ENABLED == 'true'
+        run: npm run namecheap:dns:sync
+        env:
+          NAMECHEAP_API_USER: ${{ secrets.NAMECHEAP_API_USER }}
+          NAMECHEAP_USERNAME: ${{ secrets.NAMECHEAP_USERNAME }}
+          NAMECHEAP_API_KEY: ${{ secrets.NAMECHEAP_API_KEY }}
+          NAMECHEAP_CLIENT_IP: ${{ secrets.NAMECHEAP_CLIENT_IP }}
