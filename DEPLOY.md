@@ -24,6 +24,7 @@
 
 ## Domain strategy
 
-- Primary URL: `https://ixia.online/`
-- `www.ixia.online` should point to the same Pages project
+- Primary URL: `https://www.ixia.online/`
+- `www.ixia.online` and `ixia.online` should point to the same Pages project
+- `ixia.online` should redirect to `https://www.ixia.online`
 - If the domain still uses external nameservers, switch it to Namecheap BasicDNS first, then sync records

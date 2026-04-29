@@ -3,7 +3,10 @@ import path from "node:path";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
-const siteUrl = (process.env.VITE_SITE_URL || "https://ixia.online").replace(/\/$/, "");
+const siteUrl = (process.env.VITE_SITE_URL || "https://www.ixia.online").replace(/\/$/, "");
+const apexHost = process.env.VITE_APEX_HOST || "ixia.online";
+const canonicalHost = process.env.VITE_CANONICAL_HOST || "www.ixia.online";
+const apexRedirectSnippet = `    <script>\n      if (window.location.hostname === "${apexHost}") {\n        window.location.replace("https://${canonicalHost}" + window.location.pathname + window.location.search + window.location.hash);\n      }\n    </script>\n`;
 const htmlPages = [
   "",
   "services",
@@ -17,9 +20,9 @@ const htmlPages = [
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
 
-copyFile("index.html", "index.html");
+copyHtmlFile("index.html", "index.html");
 for (const page of htmlPages.filter(Boolean)) {
-  copyFile(path.join(page, "index.html"), path.join(page, "index.html"));
+  copyHtmlFile(path.join(page, "index.html"), path.join(page, "index.html"));
 }
 copyDir("public", dist);
 
@@ -46,6 +49,18 @@ function copyFile(from, to) {
   const dst = path.join(dist, to);
   fs.mkdirSync(path.dirname(dst), { recursive: true });
   fs.copyFileSync(src, dst);
+}
+
+function copyHtmlFile(from, to) {
+  const src = path.join(root, from);
+  const dst = path.join(dist, to);
+  const html = fs.readFileSync(src, "utf8");
+  const withRedirect =
+    html.includes(apexRedirectSnippet) || !html.includes("</head>")
+      ? html
+      : html.replace("</head>", `${apexRedirectSnippet}</head>`);
+  fs.mkdirSync(path.dirname(dst), { recursive: true });
+  fs.writeFileSync(dst, withRedirect);
 }
 
 function copyDir(from, to) {

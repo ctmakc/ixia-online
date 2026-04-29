@@ -15,6 +15,7 @@ const dnsTarget = (
   process.env.CLOUDFLARE_DNS_TARGET ||
   `${process.env.CLOUDFLARE_PAGES_PROJECT || process.env.npm_package_name || "site"}.pages.dev`
 ).trim().replace(/\.$/, "");
+const apexRedirectUrl = (process.env.NAMECHEAP_APEX_REDIRECT_URL || "").trim();
 const ttl = String(Number.parseInt(process.env.NAMECHEAP_DNS_TTL || "300", 10) || 300);
 const dryRun = parseBoolean(process.env.NAMECHEAP_DRY_RUN, false);
 const domains = parseList(process.env.CLOUDFLARE_PAGES_DOMAINS);
@@ -99,12 +100,23 @@ function buildManagedRecords() {
   const labels = domains.length ? domains.map(getHostLabel) : ["@", "www"];
   const uniqueLabels = [...new Set(labels)];
 
-  return uniqueLabels.map((host) => ({
-    name: host,
-    type: host === "@" ? "ALIAS" : "CNAME",
-    address: dnsTarget,
-    ttl
-  }));
+  return uniqueLabels.map((host) => {
+    if (host === "@" && apexRedirectUrl) {
+      return {
+        name: host,
+        type: "URL301",
+        address: apexRedirectUrl,
+        ttl
+      };
+    }
+
+    return {
+      name: host,
+      type: host === "@" ? "ALIAS" : "CNAME",
+      address: dnsTarget,
+      ttl
+    };
+  });
 }
 
 function normalizeRecord(record) {
