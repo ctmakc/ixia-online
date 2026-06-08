@@ -31,10 +31,11 @@ const htmlPages = [
   "blog/how-to-fix-your-intake-chain-in-two-weeks"
 ];
 
-// Injected into every <head> before </head>
-const headInject = `  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap">
+// Injected into every <head> before </head>.
+// Fonts are self-hosted (woff2) — preload the two LCP-critical faces.
+const headInject = `  <link rel="preload" href="/assets/fonts/fraunces-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/hanken-grotesk-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <meta name="theme-color" content="#15110a">
   <meta property="og:image" content="${siteUrl}/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -104,10 +105,12 @@ function copyHtmlFile(from, to) {
   // Fix canonical domain: www.ixia.online → ixia.online everywhere
   html = html.replaceAll("https://www.ixia.online", siteUrl);
 
-  // Inject fonts + og:image if not already present
-  if (!html.includes("fonts.googleapis.com") && html.includes("</head>")) {
+  // Inject font preloads + og:image if not already present
+  if (!html.includes("fraunces-normal-latin.woff2") && html.includes("</head>")) {
     html = html.replace("</head>", headInject + "</head>");
   }
+  // Drop any legacy external Google Fonts references (now self-hosted)
+  html = html.replace(/\s*<link[^>]*fonts\.(googleapis|gstatic)\.com[^>]*>/g, "");
 
   fs.mkdirSync(path.dirname(dst), { recursive: true });
   fs.writeFileSync(dst, html);

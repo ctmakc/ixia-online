@@ -168,20 +168,26 @@ function labelize(key) {
   }
 })();
 
-// ── FADE-UP ANIMATIONS ─────────────────────────────────────────
+// ── FADE-UP ANIMATIONS (staggered by sibling order) ────────────
 (function () {
   const els = document.querySelectorAll('.fade-up');
-  if (!els.length || !window.IntersectionObserver) {
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!els.length || reduce || !window.IntersectionObserver) {
     els.forEach(el => el.classList.add('visible'));
     return;
   }
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (en.isIntersecting) {
+        // stagger reveal among fade-up siblings sharing a parent
+        const sibs = Array.from(en.target.parentElement?.children || [])
+          .filter(c => c.classList.contains('fade-up'));
+        const i = Math.max(0, sibs.indexOf(en.target));
+        en.target.style.transitionDelay = (i * 90) + 'ms';
         en.target.classList.add('visible');
         io.unobserve(en.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   els.forEach(el => io.observe(el));
 })();
