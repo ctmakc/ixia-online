@@ -1,9 +1,3 @@
-if (window.location.hostname === "ixia.online") {
-  const redirected = new URL(window.location.href);
-  redirected.hostname = "www.ixia.online";
-  window.location.replace(redirected.toString());
-}
-
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",

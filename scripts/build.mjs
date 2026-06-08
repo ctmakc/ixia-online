@@ -4,9 +4,6 @@ import path from "node:path";
 const root = process.cwd();
 const dist = path.join(root, "dist");
 const siteUrl = (process.env.VITE_SITE_URL || "https://www.ixia.online").replace(/\/$/, "");
-const apexHost = process.env.VITE_APEX_HOST || "ixia.online";
-const canonicalHost = process.env.VITE_CANONICAL_HOST || "www.ixia.online";
-const apexRedirectSnippet = `    <script>\n      if (window.location.hostname === "${apexHost}") {\n        window.location.replace("https://${canonicalHost}" + window.location.pathname + window.location.search + window.location.hash);\n      }\n    </script>\n`;
 const htmlPages = [
   "",
   "services",
@@ -110,12 +107,8 @@ function copyHtmlFile(from, to) {
   const src = path.join(root, from);
   const dst = path.join(dist, to);
   const html = fs.readFileSync(src, "utf8");
-  const withRedirect =
-    html.includes(apexRedirectSnippet) || !html.includes("</head>")
-      ? html
-      : html.replace("</head>", `${apexRedirectSnippet}</head>`);
   fs.mkdirSync(path.dirname(dst), { recursive: true });
-  fs.writeFileSync(dst, withRedirect);
+  fs.writeFileSync(dst, html);
 }
 
 function copyDir(from, to) {
