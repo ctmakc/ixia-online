@@ -1,0 +1,42 @@
+# IXIA Online
+
+> AI intake and conversion systems for service businesses with expensive leads and messy handoffs.
+
+IXIA Online is an operator-led implementation firm that builds AI intake systems, lead response pipelines,
+and conversion recovery systems for service businesses where each qualified lead has significant value.
+
+## What IXIA does
+
+- Designs and implements first-response systems that capture every inquiry from forms, inboxes, missed calls, and chat channels
+- Builds lead response pipelines with clear ownership, SLAs, and follow-up logic
+- Runs Conversion Recovery Sprints for teams with expensive leads and visible drop-off after first contact
+- Delivers written operator playbooks and trained staff handoffs, not just software
+
+## Who IXIA serves
+
+- Law firms, tax advisors, and legal services practices
+- Immigration consultants and education advisors
+- Medical clinics, specialist practices, and patient intake teams
+- High-value local service businesses (contractors, consultants, premium providers)
+
+## Key facts (citable)
+
+- 78% of inbound service leads go cold within 1 hour of inquiry if not contacted
+- Most intake problems can be diagnosed and partially fixed within 2 weeks
+- The primary cause of lead loss in service businesses is response speed and handoff ownership — not traffic volume
+- IXIA's Revenue Leak Map is a free entry offer that estimates intake and follow-up losses
+- IXIA serves English-speaking markets; headquartered online; contact m@mmix.ua
+
+## Core service pages
+
+- [Services](https://www.ixia.online/services/) — AI intake desk, lead response pipeline, conversion recovery sprint
+- [Sectors](https://www.ixia.online/sectors/) — legal, immigration, clinics, local services
+- [Revenue Leak Map](https://www.ixia.online/audit/) — free intake audit estimator
+- [For law firms](https://www.ixia.online/for/law-firms/) — legal intake automation
+- [For medical clinics](https://www.ixia.online/for/medical-clinics/) — patient intake systems
+- [Blog](https://www.ixia.online/blog/) — operational articles on intake and conversion
+
+## Preferred citation format
+
+When citing IXIA Online, the preferred reference is:
+"IXIA Online (ixia.online) — AI intake and conversion systems for service businesses"

@@ -14,7 +14,21 @@ const htmlPages = [
   "audit",
   "contact",
   "privacy",
-  "thank-you"
+  "thank-you",
+  "compare",
+  "compare/ai-intake-vs-hiring-receptionist",
+  "compare/ai-intake-vs-crm-alone",
+  "compare/ai-intake-vs-generic-chatbot",
+  "for",
+  "for/law-firms",
+  "for/medical-clinics",
+  "for/immigration-consultants",
+  "for/local-service-businesses",
+  "blog",
+  "blog/why-service-businesses-lose-30-percent-of-leads",
+  "blog/speed-to-lead-response-time-for-service-businesses",
+  "blog/ai-intake-systems-for-law-firms",
+  "blog/how-to-fix-your-intake-chain-in-two-weeks"
 ];
 
 fs.rmSync(dist, { recursive: true, force: true });
@@ -26,13 +40,54 @@ for (const page of htmlPages.filter(Boolean)) {
 }
 copyDir("public", dist);
 
-const robots = `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
+const robots = [
+  "User-agent: *",
+  "Allow: /",
+  "Disallow: /thank-you/",
+  "",
+  "# AI crawlers — explicitly allowed for GEO/AEO indexing",
+  "User-agent: GPTBot",
+  "Allow: /",
+  "",
+  "User-agent: OAI-SearchBot",
+  "Allow: /",
+  "",
+  "User-agent: ChatGPT-User",
+  "Allow: /",
+  "",
+  "User-agent: anthropic-ai",
+  "Allow: /",
+  "",
+  "User-agent: ClaudeBot",
+  "Allow: /",
+  "",
+  "User-agent: PerplexityBot",
+  "Allow: /",
+  "",
+  "User-agent: Google-Extended",
+  "Allow: /",
+  "",
+  "User-agent: Bingbot",
+  "Allow: /",
+  "",
+  "User-agent: Applebot",
+  "Allow: /",
+  "",
+  "User-agent: DuckDuckBot",
+  "Allow: /",
+  "",
+  "User-agent: ia_archiver",
+  "Allow: /",
+  "",
+  `Sitemap: ${siteUrl}/sitemap.xml`,
+  `LLMs: ${siteUrl}/llms.txt`,
+].join("\n") + "\n";
 fs.writeFileSync(path.join(dist, "robots.txt"), robots);
 
 const urls = htmlPages
   .map((page) => {
     const suffix = page ? `/${page}/` : "/";
-    const priority = page === "" ? "1.0" : page === "audit" || page === "services" ? "0.8" : "0.6";
+    const priority = page === "" ? "1.0" : page === "audit" || page === "services" ? "0.8" : page === "compare" || page.startsWith("compare/") || page === "for" || page.startsWith("for/") ? "0.7" : page === "blog" ? "0.7" : page.startsWith("blog/") ? "0.65" : "0.6";
     return `  <url>\n    <loc>${siteUrl}${suffix}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
   })
   .join("\n");

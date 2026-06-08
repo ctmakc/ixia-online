@@ -3,16 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact | IXIA Online</title>
-    <meta name="description" content="Send a short brief to IXIA Online about your intake, lead response, or follow-up system." />
+    <title>Request an AI Intake Audit | IXIA Online</title>
+    <meta name="description" content="Request a free AI intake audit from IXIA Online. Describe your lead response problem and get a practical scope back within one business day." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/assets/site.css" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href="https://www.ixia.online/contact/" />
+          <link rel="stylesheet" href="/assets/site.css" />
     <script defer src="/assets/site.js"></script>
-  </head>
+    <meta property="og:title" content="Request an AI Intake Audit | IXIA Online" />
+    <meta property="og:description" content="Describe your lead response problem. IXIA Online responds with a practical scope within one business day." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.ixia.online/contact/" />
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.ixia.online/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://www.ixia.online/contact/"}]}
+</script>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9N1KCCHE93"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-9N1KCCHE93');
+  </script>
+</head>
   <body>
     <header class="site-header">
       <div class="shell nav-row">
         <a class="brand" href="/"><span class="brand-mark"></span><span>IXIA Online</span></a>
+        <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
         <nav class="nav-links">
           <a href="/services/">Services</a>
           <a href="/sectors/">Sectors</a>
@@ -25,7 +43,7 @@
       <section class="page-hero">
         <div class="shell">
           <span class="eyebrow">Start here</span>
-          <h1>Send the brief the way an operator would.</h1>
+          <h1>Request an AI intake audit — describe the leak and we scope the fix.</h1>
           <p class="lead">The fastest way to get a useful response is to describe the leak, the lead sources, and what a converted opportunity is worth.</p>
         </div>
       </section>
@@ -61,8 +79,12 @@
                 <label for="reply-email">Reply email</label>
                 <input id="reply-email" name="reply_email" type="email" required />
               </div>
+              <div class="field">
+                <label for="referral">How did you hear about us? <span style="font-weight:400;">(optional)</span></label>
+                <input id="referral" name="referral" type="text" placeholder="Google, LinkedIn, referral, other..." />
+              </div>
               <div class="stack-actions">
-                <button class="button button-primary" type="submit">Compose Inquiry Email</button>
+                <button class="button button-primary" type="submit">Send Inquiry</button>
               </div>
             </form>
           </div>
@@ -74,9 +96,11 @@
               <li>Which service line is most valuable.</li>
               <li>What your team is tired of doing manually.</li>
             </ul>
+            <p class="note" style="margin-top:18px;">We respond to every inquiry within 1 business day. Usually same day for briefs sent before noon.</p>
+            <p style="margin-top:14px; font-size:0.93rem;">Not sure where to start? Run the <a class="inline-link" href="/audit/">free revenue leak map</a> first — it takes under 5 minutes.</p>
             <div class="offer-banner">
               <h3>Direct email</h3>
-              <p>If you already know the situation, send it straight to the working inbox.</p>
+              <p>Already know what you need? Skip the form and send it direct.</p>
               <a class="inline-link" href="mailto:m@mmix.ua?subject=IXIA%20Inquiry">m@mmix.ua</a>
             </div>
           </div>
@@ -85,9 +109,26 @@
     </main>
     <footer class="footer">
       <div class="shell footer-grid">
-        <div><a class="brand" href="/"><span class="brand-mark"></span><span>IXIA Online</span></a></div>
-        <div><strong>Pages</strong><div class="list"><li><a href="/audit/">Leak Map</a></li><li><a href="/services/">Services</a></li></div></div>
-        <div><strong>Contact</strong><div class="list"><li><a href="mailto:m@mmix.ua?subject=IXIA%20Inquiry">m@mmix.ua</a></li></div></div>
+        <div>
+          <a class="brand" href="/"><span class="brand-mark"></span><span>IXIA Online</span></a>
+          <small>AI intake and conversion systems for service businesses with expensive leads and messy handoffs.</small>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <div class="list">
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/sectors/">Sectors</a></li>
+            <li><a href="/audit/">Revenue Leak Map</a></li>
+          </div>
+        </div>
+        <div>
+          <strong>Contact</strong>
+          <div class="list">
+            <li><a href="/contact/">Send a brief</a></li>
+            <li><a href="mailto:m@mmix.ua?subject=IXIA%20Inquiry">m@mmix.ua</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+          </div>
+        </div>
       </div>
     </footer>
   </body>
