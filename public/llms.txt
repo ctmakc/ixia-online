@@ -29,12 +29,12 @@ and conversion recovery systems for service businesses where each qualified lead
 
 ## Core service pages
 
-- [Services](https://www.ixia.online/services/) — AI intake desk, lead response pipeline, conversion recovery sprint
-- [Sectors](https://www.ixia.online/sectors/) — legal, immigration, clinics, local services
-- [Revenue Leak Map](https://www.ixia.online/audit/) — free intake audit estimator
-- [For law firms](https://www.ixia.online/for/law-firms/) — legal intake automation
-- [For medical clinics](https://www.ixia.online/for/medical-clinics/) — patient intake systems
-- [Blog](https://www.ixia.online/blog/) — operational articles on intake and conversion
+- [Services](https://ixia.online/services/) — AI intake desk, lead response pipeline, conversion recovery sprint
+- [Sectors](https://ixia.online/sectors/) — legal, immigration, clinics, local services
+- [Revenue Leak Map](https://ixia.online/audit/) — free intake audit estimator
+- [For law firms](https://ixia.online/for/law-firms/) — legal intake automation
+- [For medical clinics](https://ixia.online/for/medical-clinics/) — patient intake systems
+- [Blog](https://ixia.online/blog/) — operational articles on intake and conversion
 
 ## Preferred citation format
 

@@ -36,4 +36,4 @@ Allow: /
 User-agent: ia_archiver
 Allow: /
 
-Sitemap: https://www.ixia.online/sitemap.xml
+Sitemap: https://ixia.online/sitemap.xml
