@@ -1143,6 +1143,22 @@ textarea { min-height: 128px; resize: vertical; }
   .fade-up, .intro > *, .intro-panel, .feed-row { opacity: 1 !important; transform: none !important; }
 }
 
+/* ── APP ACCESS (promo → platform) ─────────── */
+.nav-trial {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-radius: var(--r-sm) !important;
+  padding: 9px 16px !important;
+  font-weight: 600 !important;
+  margin-left: 4px;
+  transition: background .15s, transform .15s !important;
+}
+.nav-trial:hover { background: var(--accent-dim) !important; transform: translateY(-1px); }
+.nav-login { font-weight: 600 !important; }
+@media (max-width: 640px) {
+  .nav-trial, .nav-login { width: 100%; text-align: center; margin-left: 0 !important; }
+}
+
 /* ── COMPAT ALIASES (legacy inline-style vars) ── */
 :root {
   --text-muted: var(--muted);

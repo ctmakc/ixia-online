@@ -28,6 +28,14 @@ const buildRe = (d) =>
   );
 const transRe = { fr: buildRe(dict.fr), ru: buildRe(dict.ru) };
 
+// Promo → platform access links
+const APP_URL = process.env.IXIA_APP_URL || 'https://app.ixia.online';
+const APP_LABELS = {
+  en: { login: 'Log in', trial: 'Start free trial' },
+  fr: { login: 'Connexion', trial: 'Essai gratuit' },
+  ru: { login: 'Войти', trial: 'Бесплатный триал' },
+};
+
 const htmlPages = [
   "", "services", "sectors", "audit", "contact", "privacy", "thank-you",
   "compare",
@@ -143,7 +151,10 @@ function injectLangSwitch(html, page, loc) {
     return `<a href="${localePath(l, page)}" hreflang="${l.code}"${cur}>${l.code.toUpperCase()}</a>`;
   }).join("");
   const sw = `<div class="lang-switch" role="group" aria-label="Language / Langue / Язык">${items}</div>`;
-  return html.replace(/<\/nav>/i, sw + "</nav>");
+  const A = APP_LABELS[loc.code] || APP_LABELS.en;
+  const appLinks = `<a class="nav-login" href="${APP_URL}/login">${A.login}</a>`
+    + `<a class="nav-trial" href="${APP_URL}/signup">${A.trial}</a>`;
+  return html.replace(/<\/nav>/i, appLinks + sw + "</nav>");
 }
 
 // ── ASSETS ────────────────────────────────────────────────
