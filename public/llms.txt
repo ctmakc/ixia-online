@@ -31,10 +31,44 @@ and conversion recovery systems for service businesses where each qualified lead
 
 - [Services](https://ixia.online/services/) — AI intake desk, lead response pipeline, conversion recovery sprint
 - [Sectors](https://ixia.online/sectors/) — legal, immigration, clinics, local services
+- [Product](https://ixia.online/product/) — how the IXIA intake platform works end to end
+- [How it works](https://ixia.online/how-it-works/) — the intake-to-handoff workflow, step by step
+- [Pricing](https://ixia.online/pricing/) — plans and what each tier includes
+- [Results](https://ixia.online/results/) — outcomes, metrics, and proof from intake deployments
 - [Revenue Leak Map](https://ixia.online/audit/) — free intake audit estimator
+- [Contact](https://ixia.online/contact/) — get in touch with the IXIA team
+
+## For (by sector)
+
+- [For service businesses](https://ixia.online/for/) — sector hub for industry-specific intake systems
 - [For law firms](https://ixia.online/for/law-firms/) — legal intake automation
 - [For medical clinics](https://ixia.online/for/medical-clinics/) — patient intake systems
+- [For immigration consultants](https://ixia.online/for/immigration-consultants/) — immigration and education intake
+- [For local service businesses](https://ixia.online/for/local-service-businesses/) — high-value local service intake
+
+## Comparisons
+
+- [Compare overview](https://ixia.online/compare/) — how AI intake compares to common alternatives
+- [AI intake vs hiring a receptionist](https://ixia.online/compare/ai-intake-vs-hiring-receptionist/)
+- [AI intake vs CRM alone](https://ixia.online/compare/ai-intake-vs-crm-alone/)
+- [AI intake vs a generic chatbot](https://ixia.online/compare/ai-intake-vs-generic-chatbot/)
+
+## Blog
+
 - [Blog](https://ixia.online/blog/) — operational articles on intake and conversion
+- [Why service businesses lose 30% of leads](https://ixia.online/blog/why-service-businesses-lose-30-percent-of-leads/)
+- [Speed to lead: response time for service businesses](https://ixia.online/blog/speed-to-lead-response-time-for-service-businesses/)
+- [AI intake systems for law firms](https://ixia.online/blog/ai-intake-systems-for-law-firms/)
+- [How to fix your intake chain in two weeks](https://ixia.online/blog/how-to-fix-your-intake-chain-in-two-weeks/)
+
+## Languages
+
+IXIA Online is published in three languages. The English site is canonical; localized versions live under
+language path prefixes and carry hreflang alternates.
+
+- English (default): https://ixia.online/
+- Français: https://ixia.online/fr/
+- Русский: https://ixia.online/ru/
 
 ## Preferred citation format
 

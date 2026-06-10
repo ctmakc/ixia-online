@@ -168,6 +168,124 @@ function labelize(key) {
   }
 })();
 
+// ── LIVE INTAKE MONITOR ────────────────────────────────────────
+(function () {
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── COUNT-UP (monitor-foot .mf-num + hero stat numbers) ──────
+  (function () {
+    const nums = document.querySelectorAll('.mf-num');
+    if (!nums.length) return;
+
+    function run(el) {
+      const raw = el.textContent.trim();
+      const m = raw.match(/^([^\d-]*)(-?\d+)(.*)$/);
+      if (!m) return;
+      const prefix = m[1], target = parseInt(m[2], 10), suffix = m[3];
+      if (reduce || !window.requestAnimationFrame) {
+        el.textContent = prefix + target + suffix;
+        return;
+      }
+      const duration = 1100;
+      const start = performance.now();
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
+      function tick(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const val = Math.round(target * easeOut(t));
+        el.textContent = prefix + val + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = prefix + target + suffix;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    if (!window.IntersectionObserver) { nums.forEach(run); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(el => io.observe(el));
+  })();
+
+  // ── ANIMATE THE FEED ─────────────────────────────────────────
+  if (reduce) return;
+  const feed = document.querySelector('.hero .feed');
+  if (!feed) return;
+
+  const MAX_ROWS = 5;
+  const INTERVAL = 4500;
+
+  // Inline icons reused from the existing markup, keyed per channel.
+  const ICONS = {
+    'Website form': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>',
+    'Missed call':  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>',
+    'Live chat':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    'Inbox enquiry':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4 12 12 20 4"/></svg>'
+  };
+
+  // Fixed rotating pool — reuses ONLY channel labels, status pills, and
+  // sub-text fragments already present in the hand-authored markup, so no
+  // new visible English copy is introduced (no i18n key needed).
+  const POOL = [
+    { ch: 'Website form',  sub: '09:41 · qualified lead',       pill: 'pill-go',   status: 'Replied 38s' },
+    { ch: 'Live chat',     sub: '10:06 · pricing question',     pill: 'pill-go',   status: 'Captured' },
+    { ch: 'Inbox enquiry', sub: 'Fri 16:47 · no follow-up',     pill: 'pill-go',   status: 'Captured' },
+    { ch: 'Missed call',   sub: 'after hours · unrecovered',    pill: 'pill-leak', status: 'Leaking' },
+    { ch: 'Website form',  sub: '10:06 · pricing question',     pill: 'pill-go',   status: 'Replied 38s' },
+    { ch: 'Missed call',   sub: '17:52 · after hours',          pill: 'pill-leak', status: 'Leaking' }
+  ];
+
+  let idx = 0;
+
+  function buildRow(item) {
+    const row = document.createElement('div');
+    row.className = 'feed-row feed-row--in';
+
+    const icon = document.createElement('span');
+    icon.className = 'feed-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = ICONS[item.ch] || ICONS['Website form'];
+
+    const main = document.createElement('span');
+    main.className = 'feed-main';
+    const ch = document.createElement('span');
+    ch.className = 'feed-ch';
+    ch.textContent = item.ch;
+    const sub = document.createElement('span');
+    sub.className = 'feed-sub';
+    sub.textContent = item.sub;
+    main.appendChild(ch);
+    main.appendChild(sub);
+
+    const pill = document.createElement('span');
+    pill.className = 'pill ' + item.pill;
+    pill.textContent = item.status;
+
+    row.appendChild(icon);
+    row.appendChild(main);
+    row.appendChild(pill);
+    return row;
+  }
+
+  function step() {
+    if (document.hidden) return;
+    const item = POOL[idx % POOL.length];
+    idx += 1;
+    const row = buildRow(item);
+    feed.insertBefore(row, feed.firstChild);
+
+    // drop the flash class after the entrance so it can re-trigger next time
+    setTimeout(() => row.classList.remove('feed-row--in'), 700);
+
+    while (feed.children.length > MAX_ROWS) {
+      feed.removeChild(feed.lastChild);
+    }
+  }
+
+  setInterval(step, INTERVAL);
+})();
+
 // ── FADE-UP ANIMATIONS (staggered by sibling order) ────────────
 (function () {
   const els = document.querySelectorAll('.fade-up');

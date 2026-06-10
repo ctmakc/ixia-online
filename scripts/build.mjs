@@ -38,6 +38,7 @@ const APP_LABELS = {
 
 const htmlPages = [
   "", "services", "sectors", "audit", "contact", "privacy", "thank-you",
+  "pricing", "product", "results", "how-it-works", "faq",
   "compare",
   "compare/ai-intake-vs-hiring-receptionist",
   "compare/ai-intake-vs-crm-alone",
@@ -183,8 +184,8 @@ function writeSitemap() {
   const today = new Date().toISOString().split("T")[0];
   const priorityOf = (page) =>
       page === "" ? "1.0"
-    : page === "audit" || page === "services" ? "0.9"
-    : page === "sectors" || page === "contact" ? "0.8"
+    : page === "audit" || page === "services" || page === "pricing" || page === "product" ? "0.9"
+    : page === "sectors" || page === "contact" || page === "results" || page === "how-it-works" || page === "faq" ? "0.8"
     : page === "compare" || page.startsWith("compare/") || page === "for" || page.startsWith("for/") ? "0.7"
     : page === "blog" ? "0.7"
     : page.startsWith("blog/") ? "0.65"
