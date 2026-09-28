@@ -37,6 +37,25 @@ document.querySelectorAll('[data-revenue-calculator]').forEach(calc => {
 });
 
 // ── FORM SUBMISSION ────────────────────────────────────────────
+// Forms POST JSON to /api/lead (Cloudflare Worker "ixia-lead"), which emails the lead.
+const FORM_LANG = (document.documentElement.lang || 'en').slice(0, 2);
+const FORM_MSG = {
+  en: { req: 'Please fill in the required fields.', sending: 'Sending…', sent: 'Sent ✓',
+        ok: 'Your brief is in. We reply within 1 business day — usually same day.',
+        err: 'Something went wrong. Please try again or email m@mmix.ua directly.' },
+  fr: { req: 'Veuillez remplir les champs obligatoires.', sending: 'Envoi…', sent: 'Envoyé ✓',
+        ok: 'Votre demande est reçue. Nous répondons sous 1 jour ouvrable, souvent le jour même.',
+        err: 'Une erreur est survenue. Réessayez ou écrivez directement à m@mmix.ua.' },
+  ru: { req: 'Заполните обязательные поля.', sending: 'Отправляем…', sent: 'Отправлено ✓',
+        ok: 'Заявка получена. Ответим в течение 1 рабочего дня, обычно в тот же день.',
+        err: 'Что-то пошло не так. Попробуйте ещё раз или напишите на m@mmix.ua.' }
+}[FORM_LANG] || null;
+const FM = FORM_MSG || {
+  req: 'Please fill in the required fields.', sending: 'Sending…', sent: 'Sent ✓',
+  ok: 'Your brief is in. We reply within 1 business day — usually same day.',
+  err: 'Something went wrong. Please try again or email m@mmix.ua directly.' };
+const FORM_LOADED_AT = Date.now();
+
 document.querySelectorAll('[data-mail-form]').forEach(form => {
   const btn = form.querySelector('button[type="submit"]');
   if (!btn) return;
@@ -65,6 +84,15 @@ document.querySelectorAll('[data-mail-form]').forEach(form => {
     });
   });
 
+  let started = false;
+  form.addEventListener('focusin', () => {
+    if (started) return;
+    started = true;
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'form_start', { form_name: form.querySelector('[name="subject"]')?.value || 'IXIA Inquiry' });
+    }
+  });
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
 
@@ -78,54 +106,53 @@ document.querySelectorAll('[data-mail-form]').forEach(form => {
     });
     if (!valid) {
       firstBad?.focus();
-      setStatus('error', 'Please fill in the required fields.');
+      setStatus('error', FM.req);
       return;
     }
 
     const originalText = btn.textContent;
     btn.disabled = true;
-    btn.textContent = 'Sending…';
+    btn.textContent = FM.sending;
     statusEl.className = 'form-status';
 
     const data = new FormData(form);
-    const endpoint = form.getAttribute('data-action');
+    const endpoint = form.getAttribute('data-action') || '/api/lead';
+    const formName = data.get('subject') || 'IXIA Inquiry';
 
-    if (endpoint) {
-      // Real API submission
-      try {
-        const body = {};
-        data.forEach((v, k) => { body[k] = v; });
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(body)
+    try {
+      const body = {};
+      data.forEach((v, k) => { body[k] = typeof v === 'string' ? v : ''; });
+      body._ts = String(FORM_LOADED_AT);
+      body.page = location.pathname;
+      body.lang = FORM_LANG;
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      form.reset();
+      btn.textContent = FM.sent;
+      setStatus('success', FM.ok);
+      const go = () => {
+        const prefix = (FORM_LANG === 'fr' || FORM_LANG === 'ru') ? '/' + FORM_LANG : '';
+        window.location.href = prefix + '/thank-you/';
+      };
+      if (typeof window.gtag === 'function') {
+        let done = false;
+        const once = () => { if (!done) { done = true; setTimeout(go, 1200); } };
+        window.gtag('event', 'generate_lead', {
+          form_name: formName, page_path: location.pathname, language: FORM_LANG,
+          event_callback: once, event_timeout: 1500
         });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        form.reset();
-        btn.textContent = 'Sent ✓';
-        setStatus('success', 'Your brief is in. We reply within 1 business day — usually same day.');
-        setTimeout(() => { window.location.href = '/thank-you/'; }, 1800);
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = originalText;
-        setStatus('error', 'Something went wrong. Please try again or email m@mmix.ua directly.');
+        setTimeout(once, 1600);
+      } else {
+        setTimeout(go, 1800);
       }
-    } else {
-      // Mailto fallback — open in new tab, show guidance
-      const subject = data.get('subject') || 'IXIA Inquiry';
-      const body = Array.from(data.entries())
-        .filter(([k]) => k !== 'subject')
-        .map(([k, v]) => labelize(k) + ': ' + String(v).trim())
-        .join('\n');
-      const href = 'mailto:m@mmix.ua?subject=' + encodeURIComponent(subject)
-                   + '&body=' + encodeURIComponent(body);
-      window.open(href, '_blank');
+    } catch (err) {
       btn.disabled = false;
       btn.textContent = originalText;
-      setStatus('success',
-        'Your email client should open with the form pre-filled. '
-        + 'If it didn\'t, send the message directly to m@mmix.ua'
-      );
+      setStatus('error', FM.err);
     }
   });
 });
