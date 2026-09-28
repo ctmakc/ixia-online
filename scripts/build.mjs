@@ -50,7 +50,19 @@ const htmlPages = [
   "blog/speed-to-lead-response-time-for-service-businesses",
   "blog/ai-intake-systems-for-law-firms",
   "blog/how-to-fix-your-intake-chain-in-two-weeks",
+  "blog/ai-receptionist-for-law-firms-canada",
+  "news",
+  "news/google-gemini-call-for-me-ai-calls-businesses",
 ];
+
+// Pages published in English only (no FR/RU dictionary yet): built only at the EN path,
+// hreflang en + x-default only, left out of the FR/RU sitemap, and FR/RU pages link to them at the EN URL.
+const enOnlyPages = new Set([
+  "blog/ai-receptionist-for-law-firms-canada",
+  "news",
+  "news/google-gemini-call-for-me-ai-calls-businesses",
+]);
+const localesFor = (page) => enOnlyPages.has(page) ? [LOCALES[0]] : LOCALES;
 
 // Font preloads + og defaults injected into every <head>
 const headInject = `  <link rel="preload" href="/assets/fonts/bricolage-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -70,7 +82,7 @@ for (const page of htmlPages) {
   const src = path.join(root, page, "index.html");
   if (!fs.existsSync(src)) continue;
   const raw = fs.readFileSync(src, "utf8");
-  for (const loc of LOCALES) {
+  for (const loc of localesFor(page)) {
     const out = renderPage(raw, page, loc);
     const dstDir = path.join(dist, loc.dir, page);
     fs.mkdirSync(dstDir, { recursive: true });
@@ -106,7 +118,7 @@ function renderPage(raw, page, loc) {
     html = html.replace("</head>", headInject + "</head>");
   html = html.replace(/\s*<link[^>]*fonts\.(googleapis|gstatic)\.com[^>]*>/g, "");
 
-  const alts = LOCALES.map(l =>
+  const alts = localesFor(page).map(l =>
     `  <link rel="alternate" hreflang="${l.code}" href="${localeUrl(l, page)}">`
   ).join("\n") +
     `\n  <link rel="alternate" hreflang="x-default" href="${localeUrl(LOCALES[0], page)}">\n` +
@@ -142,14 +154,18 @@ function localiseLinks(html, loc) {
     if (/^\/(assets|fonts|favicon|robots|sitemap|site\.webmanifest|llms)/.test(url)) return m;
     if (/\.(png|jpg|jpeg|svg|webp|ico|txt|xml|webmanifest|pdf)$/i.test(url)) return m;
     if (new RegExp(`^/${loc.dir}(/|$)`).test(url)) return m;
+    if (enOnlyPages.has(url.split(/[?#]/)[0].replace(/^\/|\/$/g, ""))) return m;
     return `${attr}="/${loc.dir}${url}"`;
   });
 }
 
 function injectLangSwitch(html, page, loc) {
+  // EN-only pages: FR/RU switch goes to that locale's section index (blog) or home
+  const swPage = (l) => enOnlyPages.has(page) && l.code !== "en"
+    ? (page.startsWith("blog/") ? "blog" : "") : page;
   const items = LOCALES.map(l => {
     const cur = l.code === loc.code ? ' aria-current="true"' : "";
-    return `<a href="${localePath(l, page)}" hreflang="${l.code}"${cur}>${l.code.toUpperCase()}</a>`;
+    return `<a href="${localePath(l, swPage(l))}" hreflang="${l.code}"${cur}>${l.code.toUpperCase()}</a>`;
   }).join("");
   const sw = `<div class="lang-switch" role="group" aria-label="Language / Langue / Язык">${items}</div>`;
   const A = APP_LABELS[loc.code] || APP_LABELS.en;
@@ -187,14 +203,14 @@ function writeSitemap() {
     : page === "audit" || page === "services" || page === "pricing" || page === "product" ? "0.9"
     : page === "sectors" || page === "contact" || page === "results" || page === "how-it-works" || page === "faq" ? "0.8"
     : page === "compare" || page.startsWith("compare/") || page === "for" || page.startsWith("for/") ? "0.7"
-    : page === "blog" ? "0.7"
-    : page.startsWith("blog/") ? "0.65"
+    : page === "blog" || page === "news" ? "0.7"
+    : page.startsWith("blog/") || page.startsWith("news/") ? "0.65"
     : "0.5";
 
   const entries = [];
   for (const page of htmlPages) {
-    for (const loc of LOCALES) {
-      const alts = LOCALES.map(l =>
+    for (const loc of localesFor(page)) {
+      const alts = localesFor(page).map(l =>
         `    <xhtml:link rel="alternate" hreflang="${l.code}" href="${localeUrl(l, page)}"/>`
       ).join("\n") +
         `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${localeUrl(LOCALES[0], page)}"/>`;

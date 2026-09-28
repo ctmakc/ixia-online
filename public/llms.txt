@@ -60,6 +60,12 @@ and conversion recovery systems for service businesses where each qualified lead
 - [Speed to lead: response time for service businesses](https://ixia.online/blog/speed-to-lead-response-time-for-service-businesses/)
 - [AI intake systems for law firms](https://ixia.online/blog/ai-intake-systems-for-law-firms/)
 - [How to fix your intake chain in two weeks](https://ixia.online/blog/how-to-fix-your-intake-chain-in-two-weeks/)
+- [AI receptionist for law firms in Canada: what it should answer, what it must escalate, and how LSO guidance, PIPEDA and Bill C-36 apply](https://ixia.online/blog/ai-receptionist-for-law-firms-canada/) (2026-09-28)
+
+## News
+
+- [News](https://ixia.online/news/) — sourced updates on AI calling and lead response
+- [Google Gemini now calls businesses for its users: what your front desk has to handle](https://ixia.online/news/google-gemini-call-for-me-ai-calls-businesses/) (2026-09-28) — Gemini "Call for Me" test from 2026-09-24, U.S. only, and a checklist for businesses
 
 ## Languages
 
