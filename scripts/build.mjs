@@ -209,6 +209,7 @@ function writeSitemap() {
 
   const entries = [];
   for (const page of htmlPages) {
+    if (page === "thank-you") continue; // noindex page, keep it out of the sitemap
     for (const loc of localesFor(page)) {
       const alts = localesFor(page).map(l =>
         `    <xhtml:link rel="alternate" hreflang="${l.code}" href="${localeUrl(l, page)}"/>`
