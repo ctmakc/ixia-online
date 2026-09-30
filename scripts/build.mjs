@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 const root = process.cwd();
 const dist = path.join(root, "dist");
@@ -196,8 +197,23 @@ function writeRobots() {
   fs.writeFileSync(path.join(dist, "robots.txt"), robots);
 }
 
-function writeSitemap() {
+// <lastmod> = when the page's own source file last changed in git (or the build
+// time if the working tree has an uncommitted edit to it). One build date on every
+// URL told search engines nothing about which pages were actually new.
+function pageLastmod(page) {
+  const rel = page ? `${page}/index.html` : "index.html";
   const today = new Date().toISOString().split("T")[0];
+  try {
+    const dirty = execFileSync("git", ["status", "--porcelain", "--", rel], { cwd: root, encoding: "utf8" }).trim();
+    if (dirty) return today;
+    const iso = execFileSync("git", ["log", "-1", "--format=%cI", "--", rel], { cwd: root, encoding: "utf8" }).trim();
+    return iso || today;
+  } catch {
+    return today;
+  }
+}
+
+function writeSitemap() {
   const priorityOf = (page) =>
       page === "" ? "1.0"
     : page === "audit" || page === "services" || page === "pricing" || page === "product" ? "0.9"
@@ -210,13 +226,14 @@ function writeSitemap() {
   const entries = [];
   for (const page of htmlPages) {
     if (page === "thank-you") continue; // noindex page, keep it out of the sitemap
+    const lastmod = pageLastmod(page);
     for (const loc of localesFor(page)) {
       const alts = localesFor(page).map(l =>
         `    <xhtml:link rel="alternate" hreflang="${l.code}" href="${localeUrl(l, page)}"/>`
       ).join("\n") +
         `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${localeUrl(LOCALES[0], page)}"/>`;
       entries.push(
-        `  <url>\n    <loc>${localeUrl(loc, page)}</loc>\n    <lastmod>${today}</lastmod>\n` +
+        `  <url>\n    <loc>${localeUrl(loc, page)}</loc>\n    <lastmod>${lastmod}</lastmod>\n` +
         `    <changefreq>weekly</changefreq>\n    <priority>${priorityOf(page)}</priority>\n${alts}\n  </url>`
       );
     }
