@@ -92,6 +92,7 @@ for (const page of htmlPages) {
 }
 
 copyDir("public", dist);
+write404();
 writeRobots();
 writeSitemap();
 
@@ -195,6 +196,30 @@ function writeRobots() {
     `LLMs: ${siteUrl}/llms.txt`,
   ].join("\n") + "\n";
   fs.writeFileSync(path.join(dist, "robots.txt"), robots);
+}
+
+// Cloudflare Pages answers unknown paths with the home page and HTTP 200 unless
+// the build has a top-level 404.html (Yandex: "несуществующие страницы", Google:
+// soft 404). Built from the rendered EN privacy page so header/footer match.
+function write404() {
+  let html = fs.readFileSync(path.join(dist, "privacy", "index.html"), "utf8");
+  html = html
+    .replace(/<title>[^<]*<\/title>/i, "<title>Page not found | IXIA Online</title>")
+    .replace(/<meta name="description"[^>]*>/i, '<meta name="robots" content="noindex" />')
+    .replace(/\s*<link rel="canonical"[^>]*>/i, "")
+    .replace(/\s*<link rel="alternate" hreflang[^>]*>/gi, "")
+    .replace(/\s*<meta property="og:[^>]*>/gi, "")
+    .replace(/<main>[\s\S]*<\/main>/i, `<main>
+      <section class="page-hero">
+        <div class="shell">
+          <span class="eyebrow">404</span>
+          <h1>This page does not exist.</h1>
+          <p class="lead">The link may be old or mistyped. Start from the home page or ask for a free leak map.</p>
+          <p><a class="nav-cta" href="/">Home page</a> &nbsp; <a href="/audit/">Revenue Leak Map</a> &nbsp; <a href="/contact/">Contact</a></p>
+        </div>
+      </section>
+    </main>`);
+  fs.writeFileSync(path.join(dist, "404.html"), html);
 }
 
 // <lastmod> = when the page's own source file last changed in git (or the build
