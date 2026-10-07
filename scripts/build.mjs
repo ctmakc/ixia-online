@@ -44,6 +44,8 @@ const htmlPages = [
   "compare/ai-intake-vs-hiring-receptionist",
   "compare/ai-intake-vs-crm-alone",
   "compare/ai-intake-vs-generic-chatbot",
+  "compare/ai-intake-vs-diy-automation",
+  "compare/ai-intake-vs-answering-service",
   "for", "for/law-firms", "for/medical-clinics",
   "for/immigration-consultants", "for/local-service-businesses",
   "blog",
@@ -59,6 +61,8 @@ const htmlPages = [
 // Pages published in English only (no FR/RU dictionary yet): built only at the EN path,
 // hreflang en + x-default only, left out of the FR/RU sitemap, and FR/RU pages link to them at the EN URL.
 const enOnlyPages = new Set([
+  "compare/ai-intake-vs-diy-automation",
+  "compare/ai-intake-vs-answering-service",
   "blog/ai-receptionist-for-law-firms-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
