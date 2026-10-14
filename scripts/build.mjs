@@ -132,7 +132,29 @@ function renderPage(raw, page, loc) {
   html = html.replace("</head>", alts + "</head>");
 
   html = injectLangSwitch(html, page, loc);
+  html = injectAgencyCredit(html, loc);
   return html;
+}
+
+// Agency credit (Marketing MIX) in every page footer, link by locale
+function creditFor(code) {
+  const CREDIT = {
+  en: { href: "https://mmix.biz/ai-systems", text: "Website development &amp; promotion —" },
+  fr: { href: "https://mmix.biz/fr/ai-systems", text: "Développement et promotion de sites —" },
+  ru: { href: "https://mmix.ua/zakazat-korporativnyj-sajt/", text: "Разработка и продвижение сайтов —" },
+  };
+  return CREDIT[code] || CREDIT.en;
+}
+function injectAgencyCredit(html, loc) {
+  if (html.includes("mmix-credit")) return html;
+  const c = creditFor(loc.code);
+  const block = `      <div class="shell mmix-credit" style="margin-top:20px;font-size:0.78rem;color:rgba(255,255,255,.6)">` +
+    `<a href="${c.href}" target="_blank" rel="noopener" style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:10px;color:inherit;text-decoration:none;text-transform:none">` +
+    `${c.text} <span style="color:inherit;font-size:inherit">Marketing MIX</span>` +
+    `<span style="display:inline-flex;align-items:center;background:rgba(255,255,255,.9);border-radius:6px;padding:4px 8px">` +
+    `<img src="/mmix-logo.png" alt="MMIX — Marketing Mix" width="37" height="36" loading="lazy" decoding="async" style="height:36px;width:auto;display:block"></span></a></div>\n    `;
+  const i = html.lastIndexOf("</footer>");
+  return i < 0 ? html : html.slice(0, i) + block + html.slice(i);
 }
 
 function translate(html, code) {
