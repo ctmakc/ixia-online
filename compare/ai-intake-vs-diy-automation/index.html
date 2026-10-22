@@ -22,46 +22,9 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Can I just build an intake system myself with Zapier or Make?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can build a first version, and for simple notifications it may be enough. The problem is not the initial build — it is everything after. A DIY stack of Zapier, Make, or n8n wired to ChatGPT has no owner once the person who built it moves on, no monitoring when a step silently fails, and no real follow-up spine. Intake is a system that has to run every day without breaking, not a one-time automation you set and forget."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What usually breaks in a DIY automation intake setup?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The common failure points are silent ones: an API key expires, a form field gets renamed, a webhook quietly stops firing, or a ChatGPT prompt drifts and starts producing off-tone replies. Because nobody is watching, leads keep arriving and nothing happens for days. By the time someone notices, a week of inbound demand has already gone cold. A built system includes monitoring and ownership so failures surface immediately."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why does follow-up matter so much in this comparison?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most DIY stacks send one automated reply and stop there. But buyers in legal, medical, and immigration categories usually need three to five touchpoints before they commit. A built intake system carries a follow-up spine — a sequenced cadence that keeps working on leads who went quiet — which is the single hardest part to maintain in a hand-wired automation."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is a built intake system more expensive than DIY automation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The subscription cost of Zapier or Make looks cheaper on paper. The real cost of DIY is the hours your team spends maintaining it, the leads lost during silent breakage, and the opportunity cost of an owner-operator debugging webhooks instead of running the business. A built system priced against the value of a single recovered client almost always wins on total cost."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can IXIA take over an existing DIY automation we already built?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Many engagements start exactly there — a Zapier or n8n flow that worked for a while and then started leaking. The Revenue Leak Map audit maps what you have, identifies where it breaks, and rebuilds the parts that matter into a system with monitoring, routing, and follow-up that holds up under real volume."
-      }
-    }
+    {"@type": "Question", "name": "Can I just build an intake system myself with Zapier or Make?", "acceptedAnswer": {"@type": "Answer", "text": "You can build a first version, and for simple notifications it may be enough. The problem is everything after: a DIY stack has no owner once the builder moves on, no monitoring when a step silently fails, and no real follow-up spine. Intake has to run every day without breaking — not a set-and-forget automation."}},
+    {"@type": "Question", "name": "What usually breaks in a DIY setup?", "acceptedAnswer": {"@type": "Answer", "text": "Silent failures: an API key expires, a form field gets renamed, a webhook stops firing, or a ChatGPT prompt drifts off-tone. Because nobody is watching, leads keep arriving and nothing happens for days. A built system includes monitoring so failures surface immediately."}},
+    {"@type": "Question", "name": "Why does follow-up matter so much here?", "acceptedAnswer": {"@type": "Answer", "text": "Most DIY stacks send one reply and stop. Buyers in legal, medical, and immigration categories usually need 3–5 touchpoints before they commit. A built intake system carries a follow-up spine that keeps working on quiet leads — the hardest part to maintain by hand."}}
   ]
 }
 </script>
@@ -219,7 +182,7 @@
           </div>
           <p>If you have technical depth in-house and the volume to justify owning it, a DIY stack can absolutely work — as long as someone is genuinely accountable for keeping it alive.</p>
           <p style="margin-top:16px;">For everyone else, the honest trade-off is this: a DIY automation saves money on subscriptions and spends it on fragility. Every silent break, every missing follow-up, every lead that arrives and goes nowhere is a cost that never shows up on an invoice but shows up in revenue. A built system costs more upfront and removes that whole category of loss.</p>
-          <p style="margin-top:16px;">For <a href="/sectors/">law firms, immigration consultants, and medical clinics</a> where a single new client is worth $2,000–$20,000+, the right question is not "what is cheapest to set up?" — it is "what reliably converts the demand we already pay to generate?" The Revenue Leak Map puts a number on what your current setup is leaking.</p>
+          <p style="margin-top:16px;">For <a href="/sectors/">law firms, immigration consultants, and medical clinics</a>, the right question is "what reliably converts the demand we already pay to generate?" The Revenue Leak Map puts a number on what your current setup is leaking.</p>
           <div class="stack-actions" style="margin-top:32px;">
             <a class="button button-primary" href="/audit/">Get a free leak map</a>
             <a class="button button-secondary" href="/services/">See how IXIA builds intake systems</a>

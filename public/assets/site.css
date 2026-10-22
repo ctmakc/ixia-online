@@ -1326,3 +1326,9 @@ textarea { min-height: 128px; resize: vertical; }
 }
 /* long FR/RU hero accents wrap on phones instead of pushing the page sideways */
 @media (max-width: 640px) { .hero h1 em { white-space: normal; } h1, h2 { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; } }
+
+/* comparison tables fit phones (22.10.2026): fixed layout, words wrap inside cells */
+@media (max-width: 640px) {
+  .table { table-layout: fixed; font-size: 0.8rem; }
+  .table th, .table td { padding: 8px 6px; overflow-wrap: anywhere; hyphens: auto; }
+}

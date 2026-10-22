@@ -52,6 +52,11 @@ async function walk(dir, base = dir, files = new Map()) {
       continue
     }
 
+    // Pages config files go as separate form fields, never as assets
+    if (dir === base && (entry.name === '_redirects' || entry.name === '_headers')) {
+      continue
+    }
+
     const raw = await fs.readFile(abs)
     const ext = path.extname(abs).slice(1)
     const base64 = raw.toString('base64')
@@ -153,6 +158,13 @@ async function createDeployment(manifest) {
   formData.append('branch', BRANCH)
   formData.append('commit_dirty', 'true')
   formData.append('commit_message', 'Direct upload deploy from local workspace')
+  for (const name of ['_redirects', '_headers']) {
+    try {
+      const body = await fs.readFile(path.join(DIST_DIR, name))
+      formData.append(name, new Blob([body]), name)
+      console.log(`config=${name}`)
+    } catch {}
+  }
 
   return await cfJson(`/accounts/${ACCOUNT_ID}/pages/projects/${PROJECT_NAME}/deployments`, {
     method: 'POST',

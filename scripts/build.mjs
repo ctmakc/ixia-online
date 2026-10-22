@@ -49,7 +49,7 @@ const htmlPages = [
   "for", "for/law-firms", "for/medical-clinics",
   "for/immigration-consultants", "for/local-service-businesses",
   "blog",
-  "blog/why-service-businesses-lose-30-percent-of-leads",
+  "blog/why-service-businesses-lose-leads-before-first-contact",
   "blog/speed-to-lead-response-time-for-service-businesses",
   "blog/ai-intake-systems-for-law-firms",
   "blog/how-to-fix-your-intake-chain-in-two-weeks",
@@ -165,15 +165,24 @@ function translate(html, code) {
   html = html.replace(/(<script[^>]*application\/ld\+json[^>]*>)([\s\S]*?)(<\/script>)/gi, (m, open, body, close) => {
     let data;
     try { data = JSON.parse(body); } catch { return m; }
-    const walk = (v) => {
+    const walk = (v, qa = false) => {
       if (typeof v === "string") {
         const k = v.replace(/\s+/g, " ").trim();
         const t = d[k];
-        return (t && t !== k && !/<[a-z]/i.test(t)) ? t : v;
+        if (t && t !== k && !/<[a-z]/i.test(t)) return t;
+        // FAQ answers with inline links are split into several text nodes in the
+        // visible HTML; translate them piece by piece the same way
+        if (qa) return v.replace(transRe[code], (m) => {
+          const key = m.replace(/\s+/g, " ").trim();
+          const tv = d[key];
+          return (tv && tv !== key && !/<[a-z]/i.test(tv)) ? tv : m;
+        });
+        return v;
       }
-      if (Array.isArray(v)) return v.map(walk);
+      if (Array.isArray(v)) return v.map((x) => walk(x, qa));
       if (v && typeof v === "object") {
-        for (const key of Object.keys(v)) if (!key.startsWith("@") && key !== "url") v[key] = walk(v[key]);
+        const isQA = v["@type"] === "Question" || v["@type"] === "Answer";
+        for (const key of Object.keys(v)) if (!key.startsWith("@") && key !== "url") v[key] = walk(v[key], qa || isQA);
       }
       return v;
     };

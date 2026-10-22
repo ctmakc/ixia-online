@@ -22,30 +22,9 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Do I need an AI intake system if I already have a CRM?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, if your CRM is filling up with leads that never convert. A CRM is a record-keeping and pipeline management tool — it acts on data that someone already entered. An AI intake system is what happens before the CRM: it captures the inquiry, sends the first response, qualifies the lead, and creates the CRM record with context attached. Without an intake layer, your CRM is just a graveyard of contacts that nobody followed up with fast enough."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the difference between an intake system and a CRM?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A CRM manages what you already know about a contact: their history, pipeline stage, notes, and scheduled follow-ups. An intake system manages what happens the moment a new inquiry arrives: the first response, qualification questions, routing to the right person, and the initial follow-up sequence. CRMs are reactive — they organize existing data. Intake systems are proactive — they determine whether a lead makes it into the CRM at all."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can my CRM handle first-response automation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Some CRMs include basic email automations, but these are designed for nurture sequences on contacts already in the system — not for the first 5 minutes after a new inquiry arrives via form, phone, or chat. The intake window (the first response, the qualification, the routing decision) requires logic that most CRM automations were not built to handle. Configuring a CRM to act as an intake system is possible but typically results in brittle workflows that break when inquiry patterns change."
-      }
-    }
+    {"@type": "Question", "name": "Do I need an intake system if I already have a CRM?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if your CRM is filling up with leads that never convert. A CRM is a record-keeping and pipeline management tool — it acts on data that someone already entered. An intake system is what happens before the CRM: capture, first response, qualification, routing."}},
+    {"@type": "Question", "name": "Can my CRM handle first-response automation?", "acceptedAnswer": {"@type": "Answer", "text": "Some CRMs include basic email automations, but these are designed for nurture sequences on contacts already in the system — not for the first 5 minutes after a new inquiry arrives. The intake window requires logic that most CRM automations were not built to handle."}},
+    {"@type": "Question", "name": "Will an intake system break my existing CRM setup?", "acceptedAnswer": {"@type": "Answer", "text": "No. IXIA builds intake layers that feed your existing CRM — they create records, attach intake data, and trigger whatever CRM workflows you already have in place. The intake system adds a layer in front; it does not replace the CRM below."}}
   ]
 }
 </script>
