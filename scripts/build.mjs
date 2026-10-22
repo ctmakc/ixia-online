@@ -160,6 +160,30 @@ function injectAgencyCredit(html, loc) {
 function translate(html, code) {
   const d = dict[code];
   // protect <script>, <style>, comments with text sentinels
+  // JSON-LD must match the visible (translated) text: translate its string
+  // values that are exact dictionary keys (FAQPage questions/answers etc.)
+  html = html.replace(/(<script[^>]*application\/ld\+json[^>]*>)([\s\S]*?)(<\/script>)/gi, (m, open, body, close) => {
+    let data;
+    try { data = JSON.parse(body); } catch { return m; }
+    const walk = (v) => {
+      if (typeof v === "string") {
+        const k = v.replace(/\s+/g, " ").trim();
+        const t = d[k];
+        return (t && t !== k && !/<[a-z]/i.test(t)) ? t : v;
+      }
+      if (Array.isArray(v)) return v.map(walk);
+      if (v && typeof v === "object") {
+        for (const key of Object.keys(v)) if (!key.startsWith("@") && key !== "url") v[key] = walk(v[key]);
+      }
+      return v;
+    };
+    const out = JSON.stringify(walk(data), null, 2).replace(/</g, "\\u003c");
+    return open + "\n" + out + "\n" + close;
+  });
+  if (/<script[^>]*application\/ld\+json/i.test(html)) {
+    const inLang = { fr: "fr-FR", ru: "ru-RU" }[code];
+    if (inLang) html = html.replace(/"inLanguage":\s*"en[^"]*"/g, `"inLanguage": "${inLang}"`);
+  }
   const stash = [];
   const protect = (rx) => {
     html = html.replace(rx, (m) => { stash.push(m); return `@@IXIASTASH${stash.length - 1}@@`; });
