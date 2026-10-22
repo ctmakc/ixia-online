@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Results — representative recovery scenarios | IXIA Online</title>
-    <meta name="description" content="What sealing the intake chain looks like in practice: representative recovery scenarios for an immigration consultancy, a multi-location clinic, and a boutique law firm, plus how IXIA measures recovery." />
+    <title>Results: 209 lost enquiries recovered | IXIA Online</title>
+    <meta name="description" content="Our own intake audit, October 2026: 5,709 inbound emails re-checked, 209 real enquiries found that never reached the CRM, all restored with original dates. How IXIA measures recovery." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href="https://ixia.online/results/" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script defer src="/assets/site.js"></script>
-    <meta property="og:title" content="Results — representative recovery scenarios | IXIA Online" />
-    <meta property="og:description" content="Representative recovery scenarios and how IXIA measures recovery against the leak-map methodology." />
+    <meta property="og:title" content="Results: 209 lost enquiries recovered | IXIA Online" />
+    <meta property="og:description" content="Our own intake audit, October 2026: 209 real enquiries that never reached the CRM, found and restored. How IXIA measures recovery." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ixia.online/results/" />
     <script type="application/ld+json">
@@ -61,8 +61,8 @@
       <section class="page-hero">
         <div class="shell">
           <span class="eyebrow">Results</span>
-          <h1>What sealing the intake chain actually looks like.</h1>
-          <p class="lead">The scenarios below are representative composites, framed honestly from the kind of work IXIA does. They show the shape of recovery, not promises — your own number comes from your Leak Map.</p>
+          <h1>209 enquiries that never reached the CRM — found and restored.</h1>
+          <p class="lead">In October 2026 we ran the intake audit on our own group's websites. An email gateway that turns website enquiries into CRM leads had stopped working in April without any alert. Here is what the audit found and what we did.</p>
         </div>
       </section>
 
@@ -70,29 +70,48 @@
         <div class="shell">
           <div class="section-head">
             <div>
-              <h2>Representative recovery scenarios</h2>
-              <p class="section-copy">Composite scenarios based on common intake patterns in these sectors. Illustrative, not guaranteed outcomes.</p>
+              <h2>Case: our own intake chain, April–October 2026</h2>
+              <p class="section-copy">Measured on our own websites and CRM. Client results will be published here only with the client's written permission.</p>
             </div>
           </div>
           <div class="scenario-grid">
             <article class="stat-card">
-              <strong>~11 / mo</strong>
-              <span>booked consults recovered</span>
-              <h3>Immigration consultancy</h3>
-              <p>An 18% lead leak from slow and after-hours replies. Sealing first-response and follow-up recovered roughly 11 booked consultations per month from the same traffic.</p>
+              <strong>5,709</strong>
+              <span>inbound emails re-checked</span>
+              <h3>The silent gap</h3>
+              <p>From 1 April 2026 the parser behind the email gateway hit its quota, and every enquiry email was stored as invalid. From April to August the CRM received one lead from these sites, against 90–124 a month before.</p>
             </article>
             <article class="stat-card">
-              <strong>~3.4×</strong>
-              <span>after-hours bookings</span>
-              <h3>Multi-location clinic</h3>
-              <p>Missed calls across locations were quietly killing booked appointments. Missed-call capture plus instant response lifted after-hours bookings by about 3.4×.</p>
+              <strong>209</strong>
+              <span>real enquiries recovered</span>
+              <h3>Six websites</h3>
+              <p>Each email was screened for spam, tests, duplicates and bounces. 209 real enquiries from six websites went into the CRM with their original dates, tagged for follow-up.</p>
             </article>
             <article class="stat-card">
-              <strong>6h → 90s</strong>
-              <span>first-response time</span>
-              <h3>Boutique law firm</h3>
-              <p>Average first response dropped from around six hours to 90 seconds. Faster acknowledgement meaningfully reduced enquirer drop-off before the first human call.</p>
+              <strong>5,500</strong>
+              <span>emails filtered out</span>
+              <h3>Noise removed</h3>
+              <p>4,935 came from a single flood on one day, 223 were spam, 65 were duplicates inside the batch, 19 already existed in the CRM, 30 were bounces; the rest were internal tests and emails the newer form hook had already delivered.</p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-alt">
+        <div class="shell grid-2" style="align-items:start;">
+          <div class="panel">
+            <span class="mini-kicker">What we changed</span>
+            <h2>Fixes in the chain</h2>
+            <ul class="list">
+              <li>Replaced the failed parser with a new model-based parser that also flags spam and test messages.</li>
+              <li>Moved the gateway to its own database user with only the rights it needs.</li>
+              <li>On the main websites, forms now create the CRM lead directly, and the email gateway is the second path.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <span class="mini-kicker">Why it matters</span>
+            <h2>The traffic was there</h2>
+            <p>The websites kept getting enquiries for months. Nobody saw them because the step between the inbox and the CRM failed quietly. This is the kind of leak the Revenue Leak Map looks for first: places where an enquiry arrives and no person ever sees it.</p>
           </div>
         </div>
       </section>
@@ -102,7 +121,7 @@
           <div class="panel">
             <span class="mini-kicker">Methodology</span>
             <h2>How we measure recovery</h2>
-            <p class="section-copy">Every number ties back to the same leak-map methodology — so the figures are defensible, not marketing rounding.</p>
+            <p class="section-copy">Every number ties back to the same leak-map methodology, so you can check each figure against your own data.</p>
             <table class="table">
               <tr><th>Step</th><th>What we measure</th></tr>
               <tr><td>Baseline</td><td>Current lead volume, first-response time, and where leads drop off by source.</td></tr>
@@ -118,18 +137,6 @@
         </div>
       </section>
 
-      <section>
-        <div class="shell grid-2">
-          <div class="quote">
-            <blockquote>The traffic was never the problem. We were losing the people who already raised their hand — at 6pm, on weekends, in the gap between the form and the callback.</blockquote>
-            <cite>Composite operator account — representative of IXIA engagements, not a single named client</cite>
-          </div>
-          <div class="quote">
-            <blockquote>Once every enquiry got an instant, specific acknowledgement, the no-shows and ghosting dropped before we changed anything else.</blockquote>
-            <cite>Composite operator account — representative, illustrative of typical patterns</cite>
-          </div>
-        </div>
-      </section>
 
       <section>
         <div class="shell">

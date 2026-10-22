@@ -21,7 +21,8 @@ and conversion recovery systems for service businesses where each qualified lead
 
 ## Key facts (citable)
 
-- 78% of inbound service leads go cold within 1 hour of inquiry if not contacted
+- Harvard Business Review (2011, 2,241 US companies): firms that tried to contact a lead within an hour were nearly 7 times as likely to qualify it as firms that waited longer
+- Own audit, October 2026: of 5,709 inbound emails since April, 209 real enquiries had never reached the CRM because an email gateway had silently stopped; all 209 were restored with original dates
 - Most intake problems can be diagnosed and partially fixed within 2 weeks
 - The primary cause of lead loss in service businesses is response speed and handoff ownership — not traffic volume
 - IXIA's Revenue Leak Map is a free entry offer that estimates intake and follow-up losses
@@ -34,7 +35,7 @@ and conversion recovery systems for service businesses where each qualified lead
 - [Product](https://ixia.online/product/) — how the IXIA intake platform works end to end
 - [How it works](https://ixia.online/how-it-works/) — the intake-to-handoff workflow, step by step
 - [Pricing](https://ixia.online/pricing/) — plans and what each tier includes
-- [Results](https://ixia.online/results/) — outcomes, metrics, and proof from intake deployments
+- [Results](https://ixia.online/results/) — our own intake audit, October 2026: 209 lost enquiries found and restored
 - [Revenue Leak Map](https://ixia.online/audit/) — free intake audit estimator
 - [Contact](https://ixia.online/contact/) — get in touch with the IXIA team
 

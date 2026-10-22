@@ -1293,3 +1293,10 @@ textarea { min-height: 128px; resize: vertical; }
   --surface-alt: var(--bg-alt);
   --line: var(--border);
 }
+
+/* Home FAQ (22.10.2026) — same rhythm as /faq/ */
+.home-faq .faq-item { padding: 16px 0; border-top: 1px solid var(--border); }
+.home-faq .faq-item:first-child { border-top: none; padding-top: 0; }
+.home-faq .faq-item h3 { font-size: 1.02rem; margin: 0 0 8px; }
+.home-faq .faq-item p { color: var(--muted); margin: 0; }
+@media (min-width: 861px) { .home-faq-head { position: sticky; top: 110px; } }
