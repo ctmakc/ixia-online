@@ -174,6 +174,21 @@ function labelize(key) {
     onScroll();
   }
 
+  // Compact menu whenever the full menu does not fit the header row
+  const row = document.querySelector('.nav-row');
+  const root = document.documentElement;
+  if (row && toggle && navLinks) {
+    const fit = () => {
+      if (window.innerWidth <= 640) { root.classList.remove('nav-compact'); return; }
+      root.classList.remove('nav-compact');
+      navLinks.classList.remove('open');
+      if (row.scrollWidth > row.clientWidth + 1) root.classList.add('nav-compact');
+    };
+    fit();
+    let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fit, 120); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  }
+
   // Mobile toggle
   if (toggle && navLinks) {
     toggle.addEventListener('click', () => {
@@ -264,6 +279,7 @@ function labelize(key) {
   ];
 
   let idx = 0;
+  const ORIG = [...feed.querySelectorAll('.feed-row')].map(r => r.cloneNode(true));
 
   function buildRow(item) {
     const row = document.createElement('div');
@@ -297,9 +313,16 @@ function labelize(key) {
 
   function step() {
     if (document.hidden) return;
-    const item = POOL[idx % POOL.length];
+    // Rotate clones of the page's own (already translated) rows so FR/RU
+    // pages never show English rows; POOL is the fallback.
+    let row;
+    if (ORIG.length) {
+      row = ORIG[idx % ORIG.length].cloneNode(true);
+      row.classList.add('feed-row--in');
+    } else {
+      row = buildRow(POOL[idx % POOL.length]);
+    }
     idx += 1;
-    const row = buildRow(item);
     feed.insertBefore(row, feed.firstChild);
 
     // drop the flash class after the entrance so it can re-trigger next time
