@@ -4,3 +4,10 @@
 /fr/blog/why-service-businesses-lose-30-percent-of-leads /fr/blog/why-service-businesses-lose-leads-before-first-contact/ 301
 /ru/blog/why-service-businesses-lose-30-percent-of-leads/ /ru/blog/why-service-businesses-lose-leads-before-first-contact/ 301
 /ru/blog/why-service-businesses-lose-30-percent-of-leads /ru/blog/why-service-businesses-lose-leads-before-first-contact/ 301
+
+# Legacy URLs of the old site (before the September 2026 rebuild) that Google still
+# crawls: 301 to the closest current page (GSC 22.10: "Не найдено (404)").
+/solutions/founders/ /product/ 301
+/solutions/founders /product/ 301
+/blog/lead-leakage-where-leads-disappear/ /blog/why-service-businesses-lose-leads-before-first-contact/ 301
+/blog/lead-leakage-where-leads-disappear /blog/why-service-businesses-lose-leads-before-first-contact/ 301
