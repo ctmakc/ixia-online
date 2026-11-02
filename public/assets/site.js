@@ -311,8 +311,16 @@ function labelize(key) {
     return row;
   }
 
+  // WCAG 2.2.2: the rotation pauses while the pointer or keyboard focus is on the feed
+  let paused = false;
+  const panel = feed.closest('.hero-panel') || feed;
+  panel.addEventListener('mouseenter', () => { paused = true; });
+  panel.addEventListener('mouseleave', () => { paused = false; });
+  panel.addEventListener('focusin', () => { paused = true; });
+  panel.addEventListener('focusout', () => { paused = false; });
+
   function step() {
-    if (document.hidden) return;
+    if (document.hidden || paused) return;
     // Rotate clones of the page's own (already translated) rows so FR/RU
     // pages never show English rows; POOL is the fallback.
     let row;
