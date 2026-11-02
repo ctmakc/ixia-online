@@ -29,6 +29,11 @@ const buildRe = (d) =>
   );
 const transRe = { fr: buildRe(dict.fr), ru: buildRe(dict.ru) };
 
+// Per-page FR/RU <title> + meta description where the dictionary translation of the
+// EN text is too long for search results (title 30-60, description 70-160 chars) or
+// only partly translated. Shape: { "page": { "fr": { "title", "description" }, "ru": {...} } }
+const seoMeta = JSON.parse(fs.readFileSync(path.join(root, "i18n/seo.json"), "utf8"));
+
 // Promo → platform access links
 const APP_URL = process.env.IXIA_APP_URL || 'https://app.ixia.online';
 const APP_LABELS = {
@@ -114,6 +119,7 @@ function renderPage(raw, page, loc) {
   if (loc.dir) html = localiseLinks(html, loc);
 
   html = html.replace(/<html[^>]*\blang="[^"]*"/i, `<html lang="${loc.code}"`);
+  html = applySeoMeta(html, page, loc);
 
   const selfUrl = localeUrl(loc, page);
   html = html.replace(/<link rel="canonical"[^>]*>/i, `<link rel="canonical" href="${selfUrl}" />`);
@@ -133,6 +139,21 @@ function renderPage(raw, page, loc) {
 
   html = injectLangSwitch(html, page, loc);
   html = injectAgencyCredit(html, loc);
+  return html;
+}
+
+function applySeoMeta(html, page, loc) {
+  const m = seoMeta[page || "/"]?.[loc.code];
+  if (!m) return html;
+  const esc = (v) => v.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  if (m.title) {
+    html = html.replace(/<title>[^<]*<\/title>/i, `<title>${esc(m.title)}</title>`);
+    html = html.replace(/<meta property="og:title"[^>]*>/i, `<meta property="og:title" content="${esc(m.title)}" />`);
+  }
+  if (m.description) {
+    html = html.replace(/<meta name="description"[^>]*>/i, `<meta name="description" content="${esc(m.description)}" />`);
+    html = html.replace(/<meta property="og:description"[^>]*>/i, `<meta property="og:description" content="${esc(m.description)}" />`);
+  }
   return html;
 }
 

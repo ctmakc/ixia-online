@@ -1,0 +1,242 @@
+{
+  "/": {
+    "fr": {
+      "title": "Accueil IA pour entreprises de services | IXIA Online",
+      "description": "IXIA Online conçoit des systèmes d'admission par IA pour cabinets d'avocats, cliniques et entreprises de services perdant des revenus par des réponses lentes."
+    },
+    "ru": {
+      "title": "AI-системы приёма обращений для сервисного бизнеса",
+      "description": "IXIA Online строит системы приёма обращений на базе ИИ для юридических фирм, клиник и сервисных компаний, теряющих выручку из-за медленных ответов."
+    }
+  },
+  "audit": {
+    "fr": {
+      "title": "Cartographie des fuites de revenus gratuite | IXIA Online",
+      "description": "Audit d'admission gratuit : estimez le chiffre d'affaires perdu à cause de réponses lentes, d'appels manqués et d'une relance faible. Moins de 5 minutes."
+    },
+    "ru": {
+      "title": "Бесплатный Revenue Leak Map для сервисных компаний",
+      "description": "Бесплатный аудит приёма обращений: оцените, сколько выручки утекает из-за медленных ответов, пропущенных звонков и слабого дожима. Менее 5 минут."
+    }
+  },
+  "services": {
+    "fr": {
+      "title": "Accueil IA et pipeline de réponse aux leads | IXIA Online",
+      "description": "Trois lignes de service : bureau d'admission par IA, pipeline de réponse aux prospects et sprint de récupération de conversions. Commencez par un audit gratuit."
+    },
+    "ru": {
+      "description": "Три направления услуг: стойка приёма на базе ИИ, конвейер реагирования на лиды и спринт восстановления конверсии. Начните с бесплатного аудита."
+    }
+  },
+  "sectors": {
+    "fr": {
+      "title": "Admission IA : avocats, cliniques, immigration | IXIA Online",
+      "description": "IXIA Online sert les cabinets d'avocats, cliniques médicales, conseils en immigration et services locaux à forte valeur, où un prospect vaut des milliers."
+    },
+    "ru": {
+      "title": "ИИ-приём для юристов, клиник и иммиграции | IXIA Online",
+      "description": "IXIA Online обслуживает юридические фирмы, клиники, иммиграционных консультантов и локальный сервисный бизнес — там, где один лид может стоить тысячи."
+    }
+  },
+  "contact": {
+    "fr": {
+      "description": "Envoyez un brief : IXIA Online répond sous 1 jour ouvrable avec un périmètre d'audit pratique. De vrais opérateurs lisent chaque demande."
+    },
+    "ru": {
+      "description": "Отправьте обращение — IXIA Online ответит в течение 1 рабочего дня с практическим объёмом аудита. Каждое обращение читают реальные операторы."
+    }
+  },
+  "privacy": {
+    "fr": {
+      "title": "Confidentialité — demandes et audits | IXIA Online",
+      "description": "Avis de confidentialité pour les demandes et les requêtes d'audit IXIA Online. Données minimales, usage pratique."
+    },
+    "ru": {
+      "title": "Конфиденциальность — обращения и аудит | IXIA Online",
+      "description": "Уведомление о конфиденциальности для обращений и запросов аудита IXIA Online. Минимум данных, практичное использование."
+    }
+  },
+  "pricing": {
+    "fr": {
+      "title": "Tarifs — Carte des fuites, Starter et Pro | IXIA Online",
+      "description": "Tarifs IXIA simples : Cartographie des fuites gratuite, Starter à $99/mois, Pro à $299/mois et mise en œuvre clé en main. Essai gratuit de 14 jours, sans carte."
+    },
+    "ru": {
+      "description": "Простые цены IXIA: бесплатная Карта утечки выручки, Starter за $99/мес, Pro за $299/мес и внедрение под ключ. 14 дней бесплатно, без карты."
+    }
+  },
+  "product": {
+    "fr": {
+      "title": "Plateforme IXIA — intake IA en libre-service et relances",
+      "description": "La plateforme IXIA capte les leads, envoie une première réponse IA instantanée, affiche un moniteur d'accueil en direct et automatise les relances."
+    },
+    "ru": {
+      "title": "Платформа IXIA — самостоятельный ИИ-приём заявок и дожим",
+      "description": "Платформа IXIA собирает лиды, мгновенно отправляет первый ИИ-ответ, показывает живой монитор приёма и автоматически ведёт дожим. Бесплатный триал."
+    }
+  },
+  "results": {
+    "fr": {
+      "description": "Notre audit d'accueil, octobre 2026 : 5 709 courriels revérifiés, 209 vraies demandes jamais arrivées dans le CRM, restaurées avec leur date d'origine."
+    },
+    "ru": {
+      "title": "Результаты: 209 потерянных обращений возвращены",
+      "description": "Наш аудит приёма заявок, октябрь 2026: перепроверено 5 709 писем, найдено 209 обращений, не дошедших до CRM, все восстановлены с исходными датами."
+    }
+  },
+  "how-it-works": {
+    "fr": {
+      "title": "Comment ça marche — cartographier, corriger, transmettre",
+      "description": "Comment IXIA fonctionne : cartographier la fuite, corriger les écarts, transmettre un système en marche. Livrables, délai de 2 à 5 semaines, libre-service."
+    },
+    "ru": {
+      "title": "Как это работает — картировать, исправить, передать",
+      "description": "Как работает IXIA: картировать утечку, закрыть пробелы и передать работающую систему. Результаты, реалистичный срок 2–5 недель и самостоятельный старт."
+    }
+  },
+  "faq": {
+    "fr": {
+      "title": "FAQ — tarifs, mise en place, Carte des fuites | IXIA Online",
+      "description": "Réponses sur les tarifs IXIA et l'essai gratuit, la mise en place et les délais, les données et la sécurité, et la Cartographie des fuites de revenus."
+    },
+    "ru": {
+      "title": "FAQ — цены, внедрение, данные и Карта утечек | IXIA Online",
+      "description": "Ответы о ценах IXIA и бесплатном триале, внедрении и сроках, данных и безопасности, а также о том, как работает Карта утечки выручки."
+    }
+  },
+  "compare": {
+    "fr": {
+      "title": "IXIA Online vs alternatives — comparatifs d'admission IA"
+    },
+    "ru": {
+      "title": "IXIA Online против альтернатив — сравнения ИИ-приёма"
+    }
+  },
+  "compare/ai-intake-vs-hiring-receptionist": {
+    "fr": {
+      "title": "Admission par IA vs embauche d'une réceptionniste",
+      "description": "Comparaison d'un système d'admission par IA et de l'embauche d'une réceptionniste pour les demandes entrantes : cabinets, cliniques, services spécialisés."
+    },
+    "ru": {
+      "title": "ИИ-приём обращений или наём администратора | IXIA Online",
+      "description": "Сравнение системы приёма обращений на базе ИИ с наймом администратора для входящих обращений в юридических фирмах, клиниках и профильных услугах."
+    }
+  },
+  "compare/ai-intake-vs-crm-alone": {
+    "fr": {
+      "title": "Admission par IA vs CRM seul : pourquoi il faut les deux",
+      "description": "Un CRM suit ce qui s'est passé. Un système d'admission par IA détermine la suite. Voici pourquoi placer la couche d'admission en amont de votre CRM."
+    },
+    "ru": {
+      "title": "Система приёма на базе ИИ или одна CRM: почему нужны обе",
+      "description": "CRM отслеживает то, что произошло. Система приёма на базе ИИ определяет, что произойдёт дальше. Поэтому слой приёма должен стоять перед CRM."
+    }
+  },
+  "compare/ai-intake-vs-generic-chatbot": {
+    "fr": {
+      "title": "Admission par IA vs chatbot générique | IXIA Online",
+      "description": "Les chatbots génériques gèrent la FAQ et le déroutement. L'admission par IA gère la qualification, l'acheminement et la relance des demandes à forte valeur."
+    },
+    "ru": {
+      "title": "ИИ-приём обращений или универсальный чат-бот | IXIA Online",
+      "description": "Универсальные чат-боты занимаются FAQ и отсечением. ИИ-приём обращений — квалификацией, маршрутизацией и дожимом ценных обращений за услугами."
+    }
+  },
+  "for": {
+    "fr": {
+      "title": "IXIA Online par secteur — systèmes d'admission par IA",
+      "description": "IXIA construit des systèmes d'admission par IA pour cabinets d'avocats, cliniques médicales, conseils en immigration et services locaux à forte valeur."
+    },
+    "ru": {
+      "title": "IXIA Online по отраслям — ИИ-приём обращений",
+      "description": "IXIA строит системы приёма обращений на базе ИИ для юридических фирм, медицинских клиник, иммиграционных консультантов и локального сервисного бизнеса."
+    }
+  },
+  "for/law-firms": {
+    "fr": {
+      "description": "Les cabinets d'avocats perdent des clients à cause d'une admission lente et d'appels manqués. IXIA capte chaque demande et la transmet vite à la bonne personne."
+    },
+    "ru": {
+      "title": "ИИ-приём обращений для юридических фирм | IXIA Online",
+      "description": "Юридические фирмы теряют клиентов из-за медленного приёма, пропущенных звонков и слабого дожима. IXIA перехватывает каждое обращение и быстро передаёт его."
+    }
+  },
+  "for/medical-clinics": {
+    "fr": {
+      "title": "Admission des patients par IA pour cliniques | IXIA Online",
+      "description": "Les appels manqués et la surcharge de l'accueil freinent discrètement une clinique. IXIA aide à capter chaque demande et à la convertir en rendez-vous réservé."
+    },
+    "ru": {
+      "title": "ИИ-приём пациентов для медицинских клиник | IXIA Online",
+      "description": "Пропущенные звонки и перегрузка стойки регистрации тихо разрушают рост клиники. IXIA помогает перехватывать каждое обращение и превращать его в запись."
+    }
+  },
+  "for/immigration-consultants": {
+    "fr": {
+      "title": "Admission par IA pour conseils en immigration | IXIA Online",
+      "description": "Les demandes d'immigration sont complexes et urgentes. IXIA qualifie les prospects, collecte les documents et relance sans perdre personne dans la file."
+    },
+    "ru": {
+      "title": "ИИ-приём обращений для иммиграционных консультантов",
+      "description": "Иммиграционные обращения сложны и срочны. IXIA строит приём, который квалифицирует лиды, собирает документы и дожимает, не теряя клиентов в очереди."
+    }
+  },
+  "for/local-service-businesses": {
+    "fr": {
+      "title": "Admission par IA pour services locaux | IXIA Online",
+      "description": "Artisans, consultants, prestataires spécialisés : réponses lentes et absence de relance coûtent cher. IXIA corrige la chaîne d'admission sans refaire le CRM."
+    },
+    "ru": {
+      "title": "ИИ-приём обращений для локального сервисного бизнеса",
+      "description": "Подрядчики, консультанты и профильные исполнители теряют выручку из-за медленных ответов и отсутствия дожима. IXIA чинит цепочку приёма без перестройки CRM."
+    }
+  },
+  "blog": {
+    "fr": {
+      "title": "Blog — accueil IA et conversion | IXIA Online",
+      "description": "Articles pratiques sur les systèmes d'admission par IA, la rapidité de réponse aux prospects et la conversion pour les entreprises de services."
+    },
+    "ru": {
+      "title": "Блог — приём обращений и конверсия | IXIA Online"
+    }
+  },
+  "blog/why-service-businesses-lose-leads-before-first-contact": {
+    "fr": {
+      "title": "Pourquoi les prospects se perdent avant le premier contact",
+      "description": "La plupart des pertes de prospects ont lieu avant toute conversation commerciale. Voici où se situe la fuite et comment la colmater."
+    },
+    "ru": {
+      "title": "Почему сервисные компании теряют лиды до первого контакта"
+    }
+  },
+  "blog/speed-to-lead-response-time-for-service-businesses": {
+    "fr": {
+      "title": "Rapidité de contact : le délai de réponse fait la conversion",
+      "description": "Une fenêtre de réponse de 5 minutes existe pour la plupart des demandes de services. Ceux qui répondent les premiers remportent l'essentiel des affaires."
+    },
+    "ru": {
+      "title": "Скорость реакции на лид: время ответа решает конверсию",
+      "description": "Для большинства обращений за услугами есть 5-минутное окно ответа. Компании, которые отвечают первыми, выигрывают большую часть сделок."
+    }
+  },
+  "blog/ai-intake-systems-for-law-firms": {
+    "fr": {
+      "title": "Admission par IA pour avocats : ce qui marche en 2025",
+      "description": "Les cabinets d'avocats perdent du chiffre d'affaires par une admission lente et des appels manqués. L'admission par IA corrige cela sans remplacer le personnel."
+    },
+    "ru": {
+      "title": "ИИ-приём обращений для юрфирм: что работает в 2025 году",
+      "description": "Юридические фирмы теряют выручку из-за медленного приёма обращений и пропущенных звонков. ИИ-приём для юристов исправляет это без замены сотрудников."
+    }
+  },
+  "blog/how-to-fix-your-intake-chain-in-two-weeks": {
+    "fr": {
+      "title": "Corriger votre chaîne d'admission en deux semaines",
+      "description": "La plupart des problèmes d'admission se corrigent en quelques jours, pas en quelques mois. Pas de nouveau CRM, pas de refonte de site, pas de contrats longs."
+    },
+    "ru": {
+      "title": "Как исправить цепочку приёма обращений за две недели",
+      "description": "Большинство проблем приёма обращений можно устранить за дни, а не месяцы. Без новой CRM, без редизайна сайта, без долгих контрактов."
+    }
+  }
+}
