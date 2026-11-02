@@ -259,7 +259,7 @@ for (const p of pages.values()) {
       const target = pages.get(ip);
       if (!target) { err(where, `hreflang ${a.lang} target ${a.href} not built`); continue; }
       if (target.noindex) err(where, `hreflang ${a.lang} target ${a.href} is noindex`);
-      if (a.lang !== "x-default" && !target.alternates.some((b) => b.href === p.canonical))
+      if (a.lang !== "x-default" && !target.alternates.some((b) => b.href === p.canonical && b.lang !== "x-default"))
         err(where, `hreflang ${a.lang} → ${a.href} does not link back (not reciprocal)`);
     }
   } else warn(where, "no hreflang alternates");
