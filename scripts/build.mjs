@@ -137,6 +137,7 @@ function renderPage(raw, page, loc) {
     `  <meta property="og:locale" content="${loc.ogLocale}">\n`;
   html = html.replace("</head>", alts + "</head>");
 
+  html = injectSkipLink(html, loc);
   html = injectLangSwitch(html, page, loc);
   html = injectAgencyCredit(html, loc);
   return html;
@@ -241,6 +242,15 @@ function localiseLinks(html, loc) {
   });
 }
 
+// "Skip to content" as the first focusable element; <main> gets id="main" as the target
+function injectSkipLink(html, loc) {
+  const label = { en: "Skip to content", fr: "Aller au contenu", ru: "Перейти к содержимому" }[loc.code];
+  if (!/<main\b/i.test(html) || html.includes('class="skip-link"')) return html;
+  html = html.replace(/<main\b(?![^>]*\bid=)/i, '<main id="main"');
+  const id = (html.match(/<main\b[^>]*\bid="([^"]+)"/i) || [])[1] || "main";
+  return html.replace(/<body([^>]*)>/i, `<body$1>\n    <a class="skip-link" href="#${id}">${label}</a>`);
+}
+
 function injectLangSwitch(html, page, loc) {
   // EN-only pages: FR/RU switch goes to that locale's section index (blog) or home
   const swPage = (l) => enOnlyPages.has(page) && l.code !== "en"
@@ -289,7 +299,7 @@ function write404() {
     .replace(/\s*<link rel="canonical"[^>]*>/i, "")
     .replace(/\s*<link rel="alternate" hreflang[^>]*>/gi, "")
     .replace(/\s*<meta property="og:[^>]*>/gi, "")
-    .replace(/<main>[\s\S]*<\/main>/i, `<main>
+    .replace(/<main\b[^>]*>[\s\S]*<\/main>/i, `<main id="main">
       <section class="page-hero">
         <div class="shell">
           <span class="eyebrow">404</span>

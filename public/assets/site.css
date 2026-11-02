@@ -56,7 +56,7 @@
   /* ink */
   --ink:         #0c0f16;
   --muted:       #535b6b;
-  --subtle:      #8a92a2;
+  --subtle:      #5e6676;   /* 4.5:1 on --bg-alt (was #8a92a2, 2.6:1 on --bg) */
 
   /* cobalt signal (primary action) */
   --accent:      #2348ff;
@@ -70,6 +70,9 @@
   --go:          #11935a;   /* captured / sealed / replied */
   --go-soft:     #d8f3e3;
   --amber:       #d98309;
+  /* text-size variants of go/leak: WCAG AA 4.5:1 on white and on their -soft fills */
+  --go-ink:      #0b7144;
+  --leak-ink:    #b8262b;
 
   /* grid + hairlines */
   --grid:        rgba(12, 15, 22, 0.05);
@@ -420,6 +423,16 @@ a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+/* on the dark footer/ink blocks the cobalt ring is ~3.1:1; white reads clearer */
+.footer a:focus-visible, .ink-block a:focus-visible, .ink-block .button:focus-visible { outline-color: #fff; }
+
+/* skip link (injected by build.mjs as the first element of <body>) */
+.skip-link {
+  position: absolute; left: 12px; top: -100px; z-index: 1000;
+  padding: 10px 16px; border-radius: var(--r-sm);
+  background: var(--ink); color: #fff; font-weight: 600; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
 
 /* ── SECTIONS ───────────────────────────────── */
 section { padding: var(--space-section) 0; position: relative; }
@@ -556,7 +569,7 @@ section { padding: var(--space-section) 0; position: relative; }
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--go);
+  color: var(--go-ink);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -623,8 +636,8 @@ section { padding: var(--space-section) 0; position: relative; }
   border-radius: 999px;
   white-space: nowrap;
 }
-.pill-leak { background: var(--leak-soft); color: var(--leak); }
-.pill-go   { background: var(--go-soft);   color: var(--go); }
+.pill-leak { background: var(--leak-soft); color: var(--leak-ink); }
+.pill-go   { background: var(--go-soft);   color: var(--go-ink); }
 .monitor-foot {
   display: flex;
   align-items: baseline;
@@ -1045,7 +1058,7 @@ input:focus, textarea:focus, select:focus {
   background: var(--surface);
 }
 textarea { min-height: 128px; resize: vertical; }
-.field.field-error label { color: var(--leak); }
+.field.field-error label { color: var(--leak-ink); }
 .field.field-error input, .field.field-error textarea, .field.field-error select {
   border-color: var(--leak); background: var(--leak-soft);
 }
@@ -1058,8 +1071,8 @@ textarea { min-height: 128px; resize: vertical; }
   line-height: 1.5;
   margin-top: 16px;
 }
-.form-status.success { display: block; background: var(--go-soft); color: var(--go); border: 1px solid rgba(17,147,90,.25); }
-.form-status.error   { display: block; background: var(--leak-soft); color: var(--leak); border: 1px solid rgba(229,72,77,.25); }
+.form-status.success { display: block; background: var(--go-soft); color: var(--go-ink); border: 1px solid rgba(17,147,90,.25); }
+.form-status.error   { display: block; background: var(--leak-soft); color: var(--leak-ink); border: 1px solid rgba(229,72,77,.25); }
 
 /* ── BREADCRUMB ─────────────────────────────── */
 .breadcrumb {
@@ -1143,8 +1156,8 @@ textarea { min-height: 128px; resize: vertical; }
   font-family: var(--font-mono);
   text-transform: uppercase; letter-spacing: .06em; font-size: .7rem; font-weight: 400;
 }
-.check { color: var(--go); font-weight: 600; }
-.cross { color: var(--leak); }
+.check { color: var(--go-ink); font-weight: 600; }
+.cross { color: var(--leak-ink); }
 
 /* ── FOOTER ─────────────────────────────────── */
 .footer {
