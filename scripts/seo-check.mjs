@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const dist = path.join(root, process.argv[2] || "dist");
+const dist = path.resolve(root, process.argv[2] || "dist");
 if (!fs.existsSync(dist)) {
   console.error(`No build output at ${dist}. Run "npm run build" first.`);
   process.exit(2);
@@ -119,7 +119,9 @@ function checkLd(where, node, seen = new Set()) {
   if (!node || typeof node !== "object" || seen.has(node)) return;
   seen.add(node);
   if (Array.isArray(node)) { node.forEach((n) => checkLd(where, n, seen)); return; }
-  for (const t of typesOf(node)) {
+  // a bare reference ({"@type","@id"}) points at an entity described elsewhere
+  const isRef = Object.keys(node).every((k) => k === "@type" || k === "@id") && node["@id"];
+  for (const t of isRef ? [] : typesOf(node)) {
     if (t === "HowTo") err(where, "JSON-LD HowTo markup (retired by Google in 2023) should be removed");
     for (const k of REQUIRED[t] || []) if (!has(node, k)) err(where, `JSON-LD ${t} missing "${k}"`);
     if (["Article", "BlogPosting", "NewsArticle"].includes(t)) {
