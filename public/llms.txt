@@ -62,11 +62,13 @@ and conversion recovery systems for service businesses where each qualified lead
 - [AI intake systems for law firms](https://ixia.online/blog/ai-intake-systems-for-law-firms/)
 - [How to fix your intake chain in two weeks](https://ixia.online/blog/how-to-fix-your-intake-chain-in-two-weeks/)
 - [AI receptionist for law firms in Canada: what it should answer, what it must escalate, and how LSO guidance, PIPEDA and Bill C-36 apply](https://ixia.online/blog/ai-receptionist-for-law-firms-canada/) (2026-09-28)
+- [Missed call text back in Canada: what to send, how fast, and what CASL allows](https://ixia.online/blog/missed-call-text-back-canada/) (2026-11-06)
 
 ## News
 
 - [News](https://ixia.online/news/) — sourced updates on AI calling and lead response
 - [Google Gemini now calls businesses for its users: what your front desk has to handle](https://ixia.online/news/google-gemini-call-for-me-ai-calls-businesses/) (2026-09-28) — Gemini "Call for Me" test from 2026-09-24, U.S. only, and a checklist for businesses
+- [New FCC opt-out rules take effect November 25, 2026: what changes for business texts and AI calls](https://ixia.online/news/fcc-robocall-opt-out-rules-november-25-2026/) (2026-11-06) — FCC 26-67 (91 FR 67214): exclusive opt-out methods, standardized STOP words, 10-business-day deadline
 
 ## Languages
 

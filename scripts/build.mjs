@@ -54,8 +54,10 @@ const htmlPages = [
   "blog/ai-intake-systems-for-law-firms",
   "blog/how-to-fix-your-intake-chain-in-two-weeks",
   "blog/ai-receptionist-for-law-firms-canada",
+  "blog/missed-call-text-back-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
+  "news/fcc-robocall-opt-out-rules-november-25-2026",
 ];
 
 // Pages published in English only (no FR/RU dictionary yet): built only at the EN path,
@@ -66,6 +68,8 @@ const enOnlyPages = new Set([
   "blog/ai-receptionist-for-law-firms-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
+  "blog/missed-call-text-back-canada",
+  "news/fcc-robocall-opt-out-rules-november-25-2026",
 ]);
 const localesFor = (page) => enOnlyPages.has(page) ? [LOCALES[0]] : LOCALES;
 
