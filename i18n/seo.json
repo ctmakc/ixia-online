@@ -232,11 +232,11 @@
   "blog/how-to-fix-your-intake-chain-in-two-weeks": {
     "fr": {
       "title": "Corriger votre chaîne d'admission en deux semaines",
-      "description": "La plupart des problèmes d'admission se corrigent en quelques jours, pas en quelques mois. Pas de nouveau CRM, pas de refonte de site, pas de contrats longs."
+      "description": "La plupart des problèmes d'admission se corrigent en quelques jours. Pas de nouveau CRM, pas de refonte de site, pas de contrats longs."
     },
     "ru": {
       "title": "Как исправить цепочку приёма обращений за две недели",
-      "description": "Большинство проблем приёма обращений можно устранить за дни, а не месяцы. Без новой CRM, без редизайна сайта, без долгих контрактов."
+      "description": "Большинство проблем приёма обращений можно устранить за несколько дней. Без новой CRM, без редизайна сайта, без долгих контрактов."
     }
   }
 }
