@@ -1,5 +1,7 @@
 # IXIA Online
 
+Live site: [ixia.online](https://ixia.online/) — AI intake and lead response systems for law firms, clinics and service businesses.
+
 IXIA Online is a compact static site for an AI intake and conversion systems offer aimed at service businesses with expensive leads and messy handoffs.
 
 ## Local commands
