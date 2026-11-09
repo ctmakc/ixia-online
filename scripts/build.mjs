@@ -61,6 +61,8 @@ const htmlPages = [
   "blog/ai-receptionist-for-law-firms-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
+  "news/immigration-levels-plan-2027-2029-consultant-intake",
+  "news/ai-chatbot-disclosure-canada-privacy-commissioner",
 ];
 
 // Pages published in English only (no FR/RU dictionary yet): built only at the EN path,
@@ -71,6 +73,8 @@ const enOnlyPages = new Set([
   "blog/ai-receptionist-for-law-firms-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
+  "news/immigration-levels-plan-2027-2029-consultant-intake",
+  "news/ai-chatbot-disclosure-canada-privacy-commissioner",
 ]);
 const localesFor = (page) => enOnlyPages.has(page) ? [LOCALES[0]] : LOCALES;
 
@@ -84,6 +88,18 @@ const headInject = `  <link rel="preload" href="/assets/fonts/bricolage-normal.w
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${siteUrl}/assets/og.png">
 `;
+
+// A page with its own og:image (news covers) keeps it: drop the default og.png lines
+// and point twitter:image at the page's cover, so there is one og:image per page.
+function headInjectFor(html) {
+  const own = (html.match(/<meta property="og:image" content="([^"]+)"/i) || [])[1];
+  if (!own) return headInject;
+  return headInject
+    .split("\n")
+    .filter((l) => !/property="og:image(:width|:height)?"/.test(l))
+    .map((l) => l.replace(`${siteUrl}/assets/og.png`, own))
+    .join("\n");
+}
 
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist, { recursive: true });
@@ -127,7 +143,7 @@ function renderPage(raw, page, loc) {
     html = html.replace(/<meta property="og:url"[^>]*>/i, `<meta property="og:url" content="${selfUrl}" />`);
 
   if (!html.includes("bricolage-normal.woff2") && html.includes("</head>"))
-    html = html.replace("</head>", headInject + "</head>");
+    html = html.replace("</head>", headInjectFor(html) + "</head>");
   html = html.replace(/\s*<link[^>]*fonts\.(googleapis|gstatic)\.com[^>]*>/g, "");
 
   const alts = localesFor(page).map(l =>

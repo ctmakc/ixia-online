@@ -66,6 +66,8 @@ and conversion recovery systems for service businesses where each qualified lead
 ## News
 
 - [News](https://ixia.online/news/) — sourced updates on AI calling and lead response
+- [Canada's 2027–2029 Immigration Levels Plan: what it means for immigration consultants' intake](https://ixia.online/news/immigration-levels-plan-2027-2029-consultant-intake/) (2026-11-09) — IRCC 2027–2029 levels plan (2026-11-05), the separate 2027 measure for up to 200,000 people in Canada, and intake steps for RCICs
+- [Telling clients they are talking to AI: what Canada's privacy commissioner told Ottawa in October 2026](https://ixia.online/news/ai-chatbot-disclosure-canada-privacy-commissioner/) (2026-11-09) — OPC submission to ISED on AI transparency (2026-10-23): when people should know an AI chatbot handles their data
 - [Google Gemini now calls businesses for its users: what your front desk has to handle](https://ixia.online/news/google-gemini-call-for-me-ai-calls-businesses/) (2026-09-28) — Gemini "Call for Me" test from 2026-09-24, U.S. only, and a checklist for businesses
 
 ## Languages
