@@ -156,7 +156,62 @@ function renderPage(raw, page, loc) {
   html = injectSkipLink(html, loc);
   html = injectLangSwitch(html, page, loc);
   html = injectAgencyCredit(html, loc);
+  html = injectHero1112(html, page, loc);
   return html;
+}
+
+// ── HERO 1112: photo in the first screen + phone request bar ─────────────
+// Owner laws 03.11 / 10.11.2026: every hero shows a picture; on phones a request
+// button sits at the bottom from the second screen. Assets: public/assets/hero-1112.
+function heroAltMap() { return {
+  home:        { en: "Smartphone on a charging stand with chat bubbles rising from the screen", fr: "Smartphone sur son socle de charge, des bulles de discussion s’élèvent de l’écran", ru: "Смартфон на зарядной подставке, над экраном поднимаются пузыри сообщений" },
+  workflow:    { en: "IXIA Online card: stop losing leads to slow intake, with replied, missed-call and recovered status chips", fr: "Carte IXIA Online : ne perdez plus de clients à cause d’un accueil lent, avec les statuts répondu, appel manqué et récupéré", ru: "Карточка IXIA Online: не теряйте заявки из-за медленного ответа, со статусами «ответили», «пропущенный звонок», «возвращено»" },
+  law:         { en: "Closed client folders on an office desk by a bright window", fr: "Dossiers clients fermés sur un bureau près d’une fenêtre lumineuse", ru: "Закрытые папки клиентов на офисном столе у светлого окна" },
+  clinic:      { en: "IXIA intake monitor: a live chat captured, a missed after-hours call leaking, website forms replied in 38 seconds", fr: "Moniteur d’accueil IXIA : chat capté, appel manqué hors heures en fuite, formulaires du site traités en 38 secondes", ru: "Монитор заявок IXIA: чат принят, пропущенный вечерний звонок утекает, заявки с сайта отвечены за 38 секунд" },
+  immigration: { en: "Red maple leaf resting on document folders on an office desk", fr: "Feuille d’érable rouge posée sur des dossiers, sur un bureau", ru: "Красный кленовый лист на папках с документами на офисном столе" },
+  local:       { en: "IXIA intake monitor: website form replied, inbox enquiry and missed call leaking, live chat captured", fr: "Moniteur d’accueil IXIA : formulaire traité, demande par courriel et appel manqué en fuite, chat capté", ru: "Монитор заявок IXIA: заявка с сайта отвечена, письмо и пропущенный звонок утекают, чат принят" },
+  reading:     { en: "Close-up of a phone screen with blue and orange chat bubbles", fr: "Gros plan d’un écran de téléphone avec des bulles de discussion bleues et orange", ru: "Крупный план экрана телефона с синими и оранжевыми пузырями сообщений" },
+}; }
+function heroKey(page) {
+  const p = page || "";
+  if (["", "contact", "audit", "thank-you", "404"].includes(p)) return "home";
+  if (/law/.test(p)) return "law";
+  if (/clinic|medical/.test(p)) return "clinic";
+  if (/immigration/.test(p)) return "immigration";
+  if (/^(for|sectors)$|local-service/.test(p)) return "local";
+  if (/^(services|product|how-it-works|pricing|results)$|^compare/.test(p)) return "workflow";
+  return "reading";
+}
+function stickyText() { return {
+  en: { note: "Free Revenue Leak Map", audit: "Request audit", brief: "Send a request", aria: "Request" },
+  fr: { note: "Carte des fuites gratuite", audit: "Demander un audit", brief: "Envoyer une demande", aria: "Demande" },
+  ru: { note: "Бесплатная карта утечек", audit: "Запросить аудит", brief: "Отправить запрос", aria: "Заявка" },
+}; }
+function injectHero1112(html, page, loc) {
+  if (html.includes("ix-hero-art")) return html;
+  const key = heroKey(page);
+  const alt = (heroAltMap()[key][loc.code] || heroAltMap()[key].en).replace(/"/g, "&quot;");
+  const A = "/assets/hero-1112/";
+  const img = `<img src="${A}${key}-wide.webp" width="1100" height="460" alt="${alt}" fetchpriority="high" decoding="async">`;
+  let fig;
+  if (/<section class="hero">\s*<div class="shell hero-grid">/.test(html)) {
+    fig = `<figure class="ix-hero-art ix-hero-art--home"><picture>${img}</picture></figure>`;
+    html = html.replace(/(<section class="hero">\s*<div class="shell hero-grid">)/, `$1\n          ${fig}`);
+  } else if (/<section class="page-hero">\s*<div class="shell">/.test(html)) {
+    fig = `<figure class="ix-hero-art"><picture><source media="(min-width: 861px)" srcset="${A}${key}-43.webp" width="920" height="690">${img}</picture></figure>`;
+    html = html.replace(/(<section class="page-hero">\s*<div class="shell">)/, `$1\n          ${fig}`);
+  } else return html;
+  html = html.replace(/(<link rel="stylesheet" href="\/assets\/site\.css"\s*\/?>)/,
+    `$1\n    <link rel="stylesheet" href="${A}hero.css" />\n    <script defer src="${A}sticky.js"></script>`);
+  const t = stickyText()[loc.code] || stickyText().en;
+  const pre = loc.dir ? `/${loc.dir}` : "";
+  const [href, label] = page === "audit" ? ["#request-form", t.audit]
+    : page === "contact" ? ["#brief-form", t.brief]
+    : [`${pre}/audit/`, t.audit];
+  const bar = `<div class="ix-sticky" role="region" aria-label="${t.aria}"><span class="ix-sticky-note">${t.note}</span>` +
+    `<a class="button button-primary" href="${href}">${label}</a></div>\n`;
+  const i = html.lastIndexOf("</body>");
+  return i < 0 ? html : html.slice(0, i) + bar + html.slice(i);
 }
 
 function applySeoMeta(html, page, loc) {
@@ -325,6 +380,9 @@ function write404() {
         </div>
       </section>
     </main>`);
+  html = html.replace(/<div class="ix-sticky"[\s\S]*?<\/div>\n?/, "");
+  html = html.replace(/\n\s*<link rel="stylesheet" href="\/assets\/hero-1112\/hero\.css" \/>\n\s*<script defer src="\/assets\/hero-1112\/sticky\.js"><\/script>/, "");
+  html = injectHero1112(html, "404", LOCALES[0]);
   fs.writeFileSync(path.join(dist, "404.html"), html);
 }
 
