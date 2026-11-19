@@ -59,10 +59,12 @@ const htmlPages = [
   "blog/ai-intake-systems-for-law-firms",
   "blog/how-to-fix-your-intake-chain-in-two-weeks",
   "blog/ai-receptionist-for-law-firms-canada",
+  "blog/ai-intake-for-immigration-consultants-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
   "news/immigration-levels-plan-2027-2029-consultant-intake",
   "news/ai-chatbot-disclosure-canada-privacy-commissioner",
+  "news/hong-kong-pathway-backlog-2027-immigration-consultant-intake",
 ];
 
 // Pages published in English only (no FR/RU dictionary yet): built only at the EN path,
@@ -71,10 +73,12 @@ const enOnlyPages = new Set([
   "compare/ai-intake-vs-diy-automation",
   "compare/ai-intake-vs-answering-service",
   "blog/ai-receptionist-for-law-firms-canada",
+  "blog/ai-intake-for-immigration-consultants-canada",
   "news",
   "news/google-gemini-call-for-me-ai-calls-businesses",
   "news/immigration-levels-plan-2027-2029-consultant-intake",
   "news/ai-chatbot-disclosure-canada-privacy-commissioner",
+  "news/hong-kong-pathway-backlog-2027-immigration-consultant-intake",
 ]);
 const localesFor = (page) => enOnlyPages.has(page) ? [LOCALES[0]] : LOCALES;
 

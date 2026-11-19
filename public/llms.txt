@@ -62,10 +62,12 @@ and conversion recovery systems for service businesses where each qualified lead
 - [AI intake systems for law firms](https://ixia.online/blog/ai-intake-systems-for-law-firms/)
 - [How to fix your intake chain in two weeks](https://ixia.online/blog/how-to-fix-your-intake-chain-in-two-weeks/)
 - [AI receptionist for law firms in Canada: what it should answer, what it must escalate, and how LSO guidance, PIPEDA and Bill C-36 apply](https://ixia.online/blog/ai-receptionist-for-law-firms-canada/) (2026-09-28)
+- [AI intake for immigration consultants in Canada: what automation can handle under the CICC Code](https://ixia.online/blog/ai-intake-for-immigration-consultants-canada/) (2026-11-19) — IRPA s. 91, CICC Code ss. 19, 22–24, 28, 37, 38, 44 mapped to intake design, and a first-contact field list
 
 ## News
 
 - [News](https://ixia.online/news/) — sourced updates on AI calling and lead response
+- [Hong Kong pathway backlog: IRCC's 2027 plan and what consultants can tell waiting clients](https://ixia.online/news/hong-kong-pathway-backlog-2027-immigration-consultant-intake/) (2026-11-19) — IRCC release of 2026-11-10: remaining Hong Kong pathway applications processed with 2027 space (up to 32,000 admissions), pathways closed 2026-08-31, open work permit policy until May 2029
 - [Canada's 2027–2029 Immigration Levels Plan: what it means for immigration consultants' intake](https://ixia.online/news/immigration-levels-plan-2027-2029-consultant-intake/) (2026-11-09) — IRCC 2027–2029 levels plan (2026-11-05), the separate 2027 measure for up to 200,000 people in Canada, and intake steps for RCICs
 - [Telling clients they are talking to AI: what Canada's privacy commissioner told Ottawa in October 2026](https://ixia.online/news/ai-chatbot-disclosure-canada-privacy-commissioner/) (2026-11-09) — OPC submission to ISED on AI transparency (2026-10-23): when people should know an AI chatbot handles their data
 - [Google Gemini now calls businesses for its users: what your front desk has to handle](https://ixia.online/news/google-gemini-call-for-me-ai-calls-businesses/) (2026-09-28) — Gemini "Call for Me" test from 2026-09-24, U.S. only, and a checklist for businesses
