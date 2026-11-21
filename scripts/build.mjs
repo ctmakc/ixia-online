@@ -157,7 +157,21 @@ function renderPage(raw, page, loc) {
   html = injectLangSwitch(html, page, loc);
   html = injectAgencyCredit(html, loc);
   html = injectHero1112(html, page, loc);
+  html = deferGtag(html);
   return html;
+}
+
+// ── PERF 1120: gtag.js (160 KB) after paint ─────────────────────────────
+// The async gtag.js tag is dropped from <head>; the inline config stays (dataLayer queue),
+// and gtag.js is loaded on the first interaction or 2 s after load. GA4 G-9N1KCCHE93 is unchanged.
+function deferGtag(html) {
+  const tag = /\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=([A-Z0-9-]+)"><\/script>/;
+  const m = html.match(tag);
+  if (!m) return html;
+  const id = m[1];
+  const loader = `<script>(function(){var d=false;function l(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${id}';document.head.appendChild(s);}['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,l,{once:true,passive:true});});function t(){setTimeout(l,2000);}if(document.readyState==='complete')t();else addEventListener('load',t,{once:true});})();</script>`;
+  html = html.replace(tag, "");
+  return html.replace("</body>", loader + "\n</body>");
 }
 
 // ── HERO 1112: photo in the first screen + phone request bar ─────────────
@@ -187,6 +201,11 @@ function stickyText() { return {
   fr: { note: "Carte des fuites gratuite", audit: "Demander un audit", brief: "Envoyer une demande", aria: "Demande" },
   ru: { note: "Бесплатная карта утечек", audit: "Запросить аудит", brief: "Отправить запрос", aria: "Заявка" },
 }; }
+var heroCssCache; // var: renderPage runs at top level before this line
+function heroCss() {
+  if (heroCssCache == null) heroCssCache = fs.readFileSync(path.join(root, "public/assets/hero-1112/hero.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s*\n\s*/g, "");
+  return heroCssCache;
+}
 function injectHero1112(html, page, loc) {
   if (html.includes("ix-hero-art")) return html;
   const key = heroKey(page);
@@ -202,7 +221,7 @@ function injectHero1112(html, page, loc) {
     html = html.replace(/(<section class="page-hero">\s*<div class="shell">)/, `$1\n          ${fig}`);
   } else return html;
   html = html.replace(/(<link rel="stylesheet" href="\/assets\/site\.css"\s*\/?>)/,
-    `$1\n    <link rel="stylesheet" href="${A}hero.css" />\n    <script defer src="${A}sticky.js"></script>`);
+    `$1\n    <style>${heroCss()}</style>\n    <script defer src="${A}sticky.js"></script>`);
   const t = stickyText()[loc.code] || stickyText().en;
   const pre = loc.dir ? `/${loc.dir}` : "";
   const [href, label] = page === "audit" ? ["#request-form", t.audit]
@@ -354,7 +373,6 @@ function writeRobots() {
     "User-agent: DuckDuckBot", "Allow: /", "",
     "User-agent: ia_archiver", "Allow: /", "",
     `Sitemap: ${siteUrl}/sitemap.xml`,
-    `LLMs: ${siteUrl}/llms.txt`,
   ].join("\n") + "\n";
   fs.writeFileSync(path.join(dist, "robots.txt"), robots);
 }
