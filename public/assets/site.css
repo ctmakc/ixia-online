@@ -616,6 +616,7 @@ section { padding: var(--space-section) 0; position: relative; }
 .feed-icon svg { width: 17px; height: 17px; }
 .feed-main { min-width: 0; }
 .feed-ch {
+  display: block;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--ink);
@@ -1338,7 +1339,7 @@ textarea { min-height: 128px; resize: vertical; }
   .nav-compact .nav-links .nav-cta, .nav-compact .nav-links .nav-trial, .nav-compact .nav-links .nav-login { width: auto; min-width: 280px; align-self: flex-start; }
 }
 /* long FR/RU hero accents wrap on phones instead of pushing the page sideways */
-@media (max-width: 640px) { .hero h1 em { white-space: normal; } h1, h2 { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; } }
+@media (max-width: 640px) { .hero h1 em { white-space: normal; } h1, h2 { hyphens: auto; -webkit-hyphens: auto; hyphenate-limit-chars: 9 4 4; overflow-wrap: break-word; } }
 
 /* comparison tables fit phones (22.10.2026): fixed layout, words wrap inside cells */
 @media (max-width: 640px) {
