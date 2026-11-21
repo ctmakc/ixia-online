@@ -355,8 +355,12 @@ function injectLangSwitch(html, page, loc) {
   }).join("");
   const sw = `<div class="lang-switch" role="group" aria-label="Language / Langue / Язык">${items}</div>`;
   const A = APP_LABELS[loc.code] || APP_LABELS.en;
-  const appLinks = `<a class="nav-login" href="${APP_URL}/login">${A.login}</a>`
-    + `<a class="nav-trial" href="${APP_URL}/signup">${A.trial}</a>`;
+  const login = `<a class="nav-login" href="${APP_URL}/login">${A.login}</a>`;
+  // Articles with their own written enquiry CTA keep the existing contact and login links.
+  const signup = html.includes('class="ix-post-cover"')
+    ? ""
+    : `<a class="nav-trial" href="${APP_URL}/signup">${A.trial}</a>`;
+  const appLinks = login + signup;
   return html.replace(/<\/nav>/i, appLinks + sw + "</nav>");
 }
 
