@@ -171,7 +171,7 @@ function renderPage(raw, page, loc) {
 // clarity.ms/tag is injected on idle after load or on the first scroll/tap/key.
 // Placeholder __ID__ = not injected; set the project id to switch it on.
 function injectClarity(html) {
-  const CLARITY_ID = "__ID__"; // inside the function: renderPage runs at top level before module-level consts
+  const CLARITY_ID = "zk4pzc5ap8"; // inside the function: renderPage runs at top level before module-level consts
   if (!/^[a-z0-9]{8,12}$/.test(CLARITY_ID) || html.includes("clarity.ms/tag/")) return html;
   const snippet = `<!-- Microsoft Clarity ${CLARITY_ID} (27.11.2026): cookieless (Consent API v2 denied), loads on idle after load or on the first action -->
     <script>(function(){var ID='${CLARITY_ID}';if(window.clarity)return;var q=function(){(q.q=q.q||[]).push(arguments)};window.clarity=q;q('consentv2',{ad_Storage:'denied',analytics_Storage:'denied'});var d=0,ev=['scroll','pointerdown','keydown','touchstart'];function inj(){if(d)return;d=1;ev.forEach(function(e){removeEventListener(e,inj)});var s=document.createElement('script');s.async=true;s.src='https://www.clarity.ms/tag/'+ID;document.head.appendChild(s)}ev.forEach(function(e){addEventListener(e,inj,{once:true,passive:true})});function idle(){window.requestIdleCallback?requestIdleCallback(inj,{timeout:3000}):setTimeout(inj,1500)}if(document.readyState==='complete')idle();else addEventListener('load',idle,{once:true});})();</script>
